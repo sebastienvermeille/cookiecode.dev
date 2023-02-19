@@ -21,16 +21,6 @@
 
 <script>
     $(document).ready(function(){
-    {% if page.comments.waline %}
-        Waline.init({
-        el: '#waline',
-        serverURL: '{{ site.comments.waline_url }}',
-        reaction: {{ site.comments.waline_reaction }},
-        comment: true,
-        locale: {{ site.comments.waline_locale }}
-        });
-    {% endif %}
-
     if($("#comments-switch").length > 0){
         var comment_status = $("#cmn-toggle-4")[0].checked;
         if(comment_status){

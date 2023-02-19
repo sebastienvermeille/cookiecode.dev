@@ -1,0 +1,20 @@
+---
+layout: page
+home-title: Open source contributions
+description: OSS projects I maintain or contribute actively
+permalink: /oss/index.html
+cover: https://images.unsplash.com/photo-1465189684280-6a8fa9b19a7a?w=1600&q=900
+---
+<p>{{ site.oss_projects | size }} OSS Projects</p>
+<ul>
+{% for project in site.oss_projects %}
+    <li>
+        <p class="archives-title">
+        <span class="archives-date">
+             <img src="/{{ project.image }}" />
+        </span>
+            <a href="{{ project.url | prepend: site.baseurl }}"> {{ project.title }} </a>
+        </p>
+    </li>
+{% endfor %}
+</ul>

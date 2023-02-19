@@ -1,31 +1,31 @@
 ---
 layout: page
-home-title: H2O-ac Theme For Jekyll
-description: 基于可能是最好看的 Jekyll 主题 H2O 的学术版主题
+home-title: About me
+description: Introduction about myself author of this humble blog.
 ---
 
 # About me
 
-&emsp;&emsp;I am a PhD student from xxx University.....
+Developer Advocate, enthusiast attracted by Clean Code concepts and keeping code enjoyable to work with !
 
-# Publications
+# Languages
 
-1. Publication 1 [[DOI]](#)
-2. Publication 2 [[DOI]](#)
+I consider myself as a language agnostic programmer beside the fact that I mostly use to program in JAVA. It’s just a syntax after all. The most important concepts are valid for all languages, what is required is the “Programmer spirit”.
 
-# Contact
+Here is a subset of languages I’ve ever used:
 
-Email: zhonger[at]live.cn (Please replace [at] with @.)
+* PHP (The first programming language I learned! if we exclude HTML/CSS)
+* JVM languages (JAVA, Kotlin, Scala)
+* C# (Unity)
+* C/C++/ASM/PIC-C/FPGA
+* Pascal/Delphi
+* Javascript/Typescript
+* Python/Ruby (I usually get something working when I need to use them but I am certainly not an expert there :)
 
-# 关于我
+# OSS supporter
 
-&emsp;&emsp;我是一名来自xx大学的博士生。。。。。。
+As developer, I used to consume open source software (in professional life but also for private side projects). No doubt about the amazing job that these people do (biggup to them btw).
 
-# 论文发表
+Since a few years now, I also try to contribute to the open source software community. I am surely not maintainer of huge projects such as Linux Kernel but still I try to share what I can with others at my humble level also via this blog :)
 
-1. 论文1 [[DOI]](#)
-2. 论文2 [[DOI]](#)
-
-# 联系我
-
-邮箱：zhonger[at]live.cn (请使用@替换[at])
+If you are interested in my open sources contributions you can have a look at my open source projects or my contributions on Github directly.

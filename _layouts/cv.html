@@ -116,7 +116,7 @@
             <article>
                 {% if cv.experience %}
                 <section class="experience">
-                    <h2 class="title">{% if cv.lang == "zh" %}实践和研究经历{% else %} Practices & Researches {% endif %}</h2>
+                    <h2 class="title">Practices & Researches</h2>
                     {% for e in cv.experience %}
                     <div class="experience-item">
                         <div class="role"> {{ e.role }} </div>
@@ -135,7 +135,7 @@
                 {% endif %}
                 {% if cv.honors %}
                 <section class="honors">
-                    <div class="title">{% if cv.lang == "zh" %}奖项荣誉{% else %}Honors{% endif %}</div>
+                    <div class="title">Honors</div>
                     <div class="honor-items">
                         {% for honor in cv.honors %}
                         <div class="honor">{{ honor }}</div>

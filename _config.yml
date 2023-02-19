@@ -1,27 +1,22 @@
-# jekyll-theme-h2o-ac
-version: 1.1.14
+version: 2.0.0
 
-# Site settings 配置站点
-title: 'Mr Li'
-description: '个人的一个技术博客站点，主要用于记录个人在学习过程中遇到的技术问题及解决方法、技术实验，以及一些比较有趣的事情。'
-keyword: 'zhonger，zhonger的博客，nodejs，kvm, 机器学习'
-url: 'https://h2o-ac.pages.dev' # your host
+# Site settings
+title: 'CookieCode'
+description: 'In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.'
+keyword: 'cookiecode，svermeille, blog'
+url: 'https://cookiecode.dev' # your host
 
 # when build blog on server, if you don't need baseurl, you should leave this value blank.
-# 在服务器上建站时，如果你不需要子域名，请将这一格留空
 # if you're using GitHub Pages, set baseurl to your blog's .
-# 如果你在使用 GitHub Pages, 请将 baseurl 设置为你的网址的子域名
 # for example, if your site is "kaeyleo.github.io", then this url should leave blank.
-# 例如，当你的域名是 "kaeyleo.github.io"  时，这个 url 需要留空
 # but if your created a repo named "myblog", and the site is "kaeyleo.github.io/myblog", change baseurl to '/myblog'
-# 但是，如果你创建了一个叫 "myblog" 的网站，此时网址会变成 "kaeyleo.github.io/myblog" ，这时再将 baseurl 设置为 '/myblog'
 baseurl: ''
 
 # Github
 github:
   enabled: true
-  owner: zhonger
-  repository: jekyll-theme-H2O-ac
+  owner: svermeille
+  repository: cookiecode.dev
 
 # PWA
 pwa:
@@ -29,22 +24,25 @@ pwa:
   short_name: 'lisz'
 
 # International
-language: zh-cn
+language: en-US
 
 # Navigation links
 nav:
-  home: '/'
-  blog: '/blog/index.html'
-  archives: '/archives.html'
-  tags: '/tags.html'
-  about:   
-    RSS: '/feed.xml'
+  home: '/blog/index.html'
+  open source: '/oss/index.html'
+#  home: '/'
+#  blog: '/blog/index.html'
+#  archives: '/archives.html'
+#  tags: '/tags.html'
+  about me: '/'
+#  about:
+#    RSS: '/feed.xml'
 
-# Gray for the whole site 全站灰色
+# Gray for the whole site
 gray: false
 
 # Formats
-# 时间格式（Time format）：0 -- 2022-04-29    1 -- 29 Apr 2022   2 -- 2022年4月29日
+# （Time format）：0 -- 2022-04-29    1 -- 29 Apr 2022   2 -- 2022年4月29日
 formats:
   time: 0   
 
@@ -53,83 +51,56 @@ favicon: "/favicon.ico"
 
 # Footer
 footer:
-  since: 2015
+  since: 2022
 
-# Author 配置博主信息
-author: 'zhonger'
-nickname: 'zhonger'
-bio: '全栈开发者，热爱前端、运维和架构设计'
+# Author
+author: 'svermeille'
+nickname: 'svermeille'
+bio: 'Developer Advocate, enthusiast attracted by Clean Code concepts and keeping code enjoyable to work with :)'
 avatar: '/assets/img/profile.webp'
 
 # Search
 search: true
 
 # Night mode
-nightMode: false
+nightMode: true
 
-# Comments 评论功能
+# Comments
 comments:
-  disqus: false
-  disqus_url: 'https://h2o-ac.disqus.com/embed.js'
-  waline: false
-  waline_url: 'https://h2o-ac-waline.deta.dev/'
-  waline_reaction: false
-  waline_locale: 
+  disqus: true
+  disqus_url: 'https://cookiecode-dev.disqus.com/embed.js'
 
-# MathJax 公式支持 by Ray-Eldath
+# MathJax by Ray-Eldath
 mathjax: true
 
 # Share
-social-share: true
+social-share: false
 social-share-items: ['wechat', 'weibo', 'douban', 'twitter']
 
-# theme color 主题皮肤
+# theme color
 theme-color: 'default'  # pink or default
 
 # Post header background patterns (when the post no cover): circuitBoard, overlappingCircles, food, glamorous, ticTacToe, seaOfClouds
 postPatterns: 'circuitBoard'
 
-# SNS settings 配置社交网站
+# SNS settings
 # url: email, weibo, zhihu, twitter, instagram, juejin, github, douban, facebook, dribble, uicn, jianshu, medium, linkedin
 sns:
-  # google-scholar: 'https://scholar.google.com/citations?user=AUupIooAAAAJ'
-  # researchgate: 'https://www.researchgate.net/profile/Shengzhou-Li'
-  # ORCID: 'https://orcid.org/0000-0001-6973-3825'
-  # github: 'https://github.com/zhonger'
-  # linkedin: 'https://www.linkedin.com/in/shengzhouli/'
-  # segmentfault: 'https://segmentfault.com/u/wuwozhonger'
+  github: 'https://github.com/sebastienvermeille'
 
-# Links 友情链接
+# Links
 links:
   # 'Mr Li': 'https://lisz.me'
-
-# Supports 赞助商
-supports:
-  upyun: 
-  webify: 
-
-# Beian 备案号
-beian: '沪ICP备xxxxxxxx号'
 
 # CC License
 cclicense: true
 
-# CNZZ Analytics
-# cnzz: 1234567891
-cnzz: 
-
 # Busuanzi Analytics
 busuanzi: true
 
-# Umami Analytics
-umami:
-  status: 
-  id: 
-  js: 
-
 # Google Analytics
 # google_analytics: UA-XXXXXXXXX-X
-google_analytics: 
+google_analytics: UA-91985102-2
 
 # Google Search
 google_search: 
@@ -137,7 +108,7 @@ google_search:
 # ToS
 tos: /tos.html
 
-# Tags 设置标签
+# Tags
 recommend-tags: true # whether or not display recommend-tags on the sidebar
 recommend-condition-size: 12 # a tag will be recommended if the size of it is more than this value
 
@@ -160,7 +131,7 @@ kramdown:
   input: GFM
 
 # Prism settings
-# Support all offical and extended themes
+# Support all official and extended themes
 # Please visit https://prismjs.com and https://github.com/PrismJS/prism-themes/tree/master/themes to check the supported theme names
 prism:
   theme: one-light
@@ -181,19 +152,6 @@ extlinks:
 
 # Mermaid
 mermaid: true
-
-# Webpusher
-webpusher: false
-
-# Foreverblog
-foreverblog: false
-
-# Wormhole
-wormhole: false
-
-# Alive time
-alivetime: false
-alivestart: "12/23/2021"
 
 # TOC
 toc: true
@@ -237,3 +195,8 @@ premonition:
 
 # Plugins
 plugins: [jekyll-paginate-v2, jekyll-feed, jekyll-sitemap, premonition, h2o-ac-jekyll-extlinks]
+
+# Custom
+collections:
+  oss_projects:
+    output: true

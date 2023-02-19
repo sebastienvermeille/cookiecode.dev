@@ -1,6 +1,6 @@
 ---
 layout: page
-home-title: Welcome to zhonger's blog!
+home-title: Categories
 description: Writing, writing, writing ...
 permalink: /categories.html
 cover: https://images.unsplash.com/photo-1465189684280-6a8fa9b19a7a?w=1600&q=900
@@ -12,7 +12,7 @@ cover: https://images.unsplash.com/photo-1465189684280-6a8fa9b19a7a?w=1600&q=900
 
 <h2>Categories</h2>
 
-<p>本站共有 {{ site.posts | size }} 篇文章{% if category_posts_num > 0 %}，其中有 {{ category_posts_num }} 个类别{% endif %}{% if uncategory_posts_num > 0 %}，{{ uncategory_posts_num }} 篇未分类{% endif %}</p>
+<p>{{ site.posts | size }} Posts{% if category_posts_num > 0 %}，{{ category_posts_num }} Categories{% endif %}{% if uncategory_posts_num > 0 %}，{{ uncategory_posts_num }} Uncategorized posts{% endif %}</p>
 
 {% for category in site.categories %}
   {% assign category_name = category | first %}

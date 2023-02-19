@@ -381,9 +381,6 @@ graph TD;
 links:
   'Mr Li': 'https://lisz.me'
 
-# Beian 备案号
-beian: '沪ICP备xxxxxxxx号'
-
 # Gray 灰度化
 gray: true
 
