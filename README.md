@@ -19,5 +19,8 @@
 </div>
 
 ### Develop
+* `yay -S ruby`
+* `gem install jekyll bundler`
+
 * This command `bundle exec jekyll serve` will locally run a livereload webserver
   to locally perform changes in the source code and view them.
