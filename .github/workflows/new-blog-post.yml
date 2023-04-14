@@ -12,6 +12,10 @@ jobs:
   setup-new-post-branch:
     name: "Init creation of article ${{ github.event.inputs.post_title }}"
     runs-on: ubuntu-22.04
+
+    permissions:
+      contents: write
+
     steps:
       - name: "Create branch"
         uses: peterjgrainger/action-create-branch@v2.2.0
@@ -20,4 +24,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: 'refs/head/post/${{ github.event.inputs.post_title }}'
-          sha: ${{ github.sha }}
