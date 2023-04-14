@@ -10,12 +10,9 @@ on:
 
 jobs:
   setup-new-post-branch:
+    name: "Init creation of article ${{ github.event.inputs.post_title }}"
     runs-on: ubuntu-22.04
-
     steps:
-      - name: "Dump inputs"
-        run: |
-          echo "post_title: ${{ github.event.inputs.post_title }}"
       - name: "Create branch"
         uses: peterjgrainger/action-create-branch@v2.2.0
         if: ${{ inputs.post_title }}
