@@ -18,14 +18,14 @@ jobs:
 
     steps:
       - name: "Sanitize branch name"
-        id: sanitized_branch_name
+        id: git_sanitizer
         uses: yeouchien/sanitize-branch-name-action@v1
         with:
-          branch-name: 'post/${{ inputs.post_title }}'
+          branch-name: '${{ inputs.post_title }}'
       - name: "Create branch"
         uses: peterjgrainger/action-create-branch@v2.2.0
         if: ${{ inputs.post_title }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          branch: ${{ steps.sanitized_branch_name.outputs }}
+          branch: 'post/${{ steps.git_sanitizer.outputs.sanitized-branch-name }}'
