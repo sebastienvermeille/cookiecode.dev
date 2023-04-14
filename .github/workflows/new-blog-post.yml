@@ -54,3 +54,15 @@ jobs:
           output: _posts/${{ steps.date.outputs.date }}-${{ steps.git_sanitizer.outputs.sanitized-branch-name }}.md
       - run: |
           cat _posts/${{ steps.date.outputs.date }}-${{ steps.git_sanitizer.outputs.sanitized-branch-name }}.md
+      
+      - name: "Push draft article"
+        uses: actions/checkout@v3
+    #    with:
+    #      ref: post/${{ steps.git_sanitizer.outputs.sanitized-branch-name }}
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated article base content"
+          git push
+    
