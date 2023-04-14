@@ -15,8 +15,8 @@ jobs:
 
     permissions:
       contents: write
-      pull-requests: write
-      actions: write
+#       pull-requests: write
+#       actions: write
 
     steps:
       - name: "Create branch"
