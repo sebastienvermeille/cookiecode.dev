@@ -37,8 +37,7 @@ jobs:
         with:
           ref: post/${{ steps.git_sanitizer.outputs.sanitized-branch-name }}
       - run: |
-          cd /_posts
-          touch "${{ steps.date.outputs.date }}-${{ steps.git_sanitizer.outputs.sanitized-branch-name }}.md"
+          touch _posts/${{ steps.date.outputs.date }}-${{ steps.git_sanitizer.outputs.sanitized-branch-name }}.md
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
