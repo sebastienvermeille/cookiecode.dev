@@ -1,3 +1,653 @@
----
-layout: rss
----
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CookieCode</title>
+    <description>In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.</description>
+    <link>https://cookiecode.dev//</link>
+    <atom:link href="https://cookiecode.dev/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Fri, 14 Apr 2023 04:46:02 +0000</pubDate>
+    <lastBuildDate>Fri, 14 Apr 2023 04:46:02 +0000</lastBuildDate>
+    <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>[Howto] Create a voice reminder for daily meeting using NodeRed</title>
+        <description>&lt;div class=&quot;premonition info&quot;&gt; &lt;div class=&quot;header&quot;&gt; &lt;svg class=&quot;icon info&quot; aria-hidden=&quot;true&quot;&gt; &lt;use xlink:href=&quot;#icon-info&quot;&gt;&lt;/use&gt; &lt;/svg&gt; &lt;div class=&quot;title&quot;&gt; Pre requisiste &lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;content&quot;&gt; &lt;p&gt;This article suppose you have a running nodered instance.&lt;/p&gt;
+
+&lt;p&gt;If you don’t have one yet have a look &lt;a href=&quot;https://nodered.org/docs/getting-started/&quot;&gt;here&lt;/a&gt; first.&lt;/p&gt;
+
+
+
+ &lt;/div&gt; &lt;/div&gt;
+&lt;h2 id=&quot;goal&quot;&gt;Goal&lt;/h2&gt;
+
+&lt;div class=&quot;premonition note&quot;&gt; &lt;div class=&quot;header&quot;&gt; &lt;svg class=&quot;icon note&quot; aria-hidden=&quot;true&quot;&gt; &lt;use xlink:href=&quot;#icon-note&quot;&gt;&lt;/use&gt; &lt;/svg&gt; &lt;div class=&quot;title&quot;&gt; As a passionated programmer I need a reminder at `08:58` each working day (monday to friday) &lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;content&quot;&gt; &lt;p&gt;That way if I am totally focussed on my coding session I still get a reminder.&lt;/p&gt;
+
+
+
+ &lt;/div&gt; &lt;/div&gt;
+&lt;h3 id=&quot;acceptance-criteria&quot;&gt;Acceptance criteria:&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;A notification sound will be played in SONOS to remind me about it (audio effect)
+    &lt;ul&gt;
+      &lt;li&gt;This sound will be generated using &lt;a href=&quot;https://ttsmp3.com/&quot;&gt;ttsmp3.com &lt;/a&gt;free online tool
+        &lt;ul&gt;
+          &lt;li&gt;given text: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sir, the daily meeting starts in a few. Are you ready ?&lt;/code&gt;&lt;/li&gt;
+          &lt;li&gt;voice: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;US English / Matthew&lt;/code&gt;&lt;/li&gt;
+          &lt;li&gt;note: You can download the mp3 file &lt;a href=&quot;../assets/audio/daily-meeting-reminder.mp3&quot;&gt;here&lt;/a&gt; directly&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;A philips HUE effect will appear on my led strip (visual effect)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This way we have some fallback in the system and can reduce late joins of 99.9% :+1:&lt;/p&gt;
+
+&lt;h3 id=&quot;implementation-using-nodered&quot;&gt;Implementation using NodeRed&lt;/h3&gt;
+
+&lt;p&gt;In order to achieve that we will need two nodered extensions:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Sonos&lt;/li&gt;
+  &lt;li&gt;Hue&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;premonition warning&quot;&gt; &lt;div class=&quot;header&quot;&gt; &lt;svg class=&quot;icon warning&quot; aria-hidden=&quot;true&quot;&gt; &lt;use xlink:href=&quot;#icon-warning&quot;&gt;&lt;/use&gt; &lt;/svg&gt; &lt;div class=&quot;title&quot;&gt; Warning &lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;content&quot;&gt; &lt;p&gt;TO COMPLETE&lt;/p&gt;
+
+
+
+ &lt;/div&gt; &lt;/div&gt;
+&lt;p&gt;Basically here we will have the following flow:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/nodered-predaily-meeting-reminder.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;First we trigger this only at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;08:58&lt;/code&gt; during working days:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/noderaid-predaily-scheduler.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;premonition warning&quot;&gt; &lt;div class=&quot;header&quot;&gt; &lt;svg class=&quot;icon warning&quot; aria-hidden=&quot;true&quot;&gt; &lt;use xlink:href=&quot;#icon-warning&quot;&gt;&lt;/use&gt; &lt;/svg&gt; &lt;div class=&quot;title&quot;&gt; Warning &lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;content&quot;&gt; &lt;p&gt;Node red will use the timezone defined in your instance. (If you run under docker you can define it via the env &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TZ=Europe/Paris&lt;/code&gt; or something else based on your region.)&lt;/p&gt;
+
+&lt;p&gt;(This concerns point 2) of the screenshot)&lt;/p&gt;
+
+
+
+ &lt;/div&gt; &lt;/div&gt;
+&lt;p&gt;Then we trigger some actions&lt;/p&gt;
+
+&lt;div class=&quot;premonition warning&quot;&gt; &lt;div class=&quot;header&quot;&gt; &lt;svg class=&quot;icon warning&quot; aria-hidden=&quot;true&quot;&gt; &lt;use xlink:href=&quot;#icon-warning&quot;&gt;&lt;/use&gt; &lt;/svg&gt; &lt;div class=&quot;title&quot;&gt; Warning &lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;content&quot;&gt; &lt;p&gt;TO COMPLETE&lt;/p&gt;
+
+
+
+ &lt;/div&gt; &lt;/div&gt;
+&lt;p&gt;Here is the snippet of code that you can import into node red directly:&lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;TO&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;DO&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+</description>
+        <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/iot/nodered-daily-reminder.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/iot/nodered-daily-reminder.html</guid>
+        
+        <category>nodered</category>
+        
+        <category>sonos</category>
+        
+        <category>hue</category>
+        
+        <category>scrum</category>
+        
+        
+        <category>iot</category>
+        
+      </item>
+    
+      <item>
+        <title>[Howto] Convert a text to a speech audio file for free using TTSMP3</title>
+        <description>&lt;p&gt;Sometimes you might need to have some audio sound based on text. Such tools are called TTS (Text to Speech).
+Many exists but rarely for free.&lt;/p&gt;
+
+&lt;p&gt;I share with you one that I particularly like to use for my personal home automation notifications:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/ttsmp3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It is totally free for a normal usage (Maximum 3K characters a day).&lt;/p&gt;
+
+&lt;p&gt;I give you here an example so you can see how easy it is:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/ttsmp3-example.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;I hope you will enjoy this tool if you have free other online tools to suggest please leave a comment!&lt;/p&gt;
+
+&lt;p&gt;Cheers&lt;/p&gt;
+</description>
+        <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/tools/ttsmp3-free-online-text-to-speech.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/tools/ttsmp3-free-online-text-to-speech.html</guid>
+        
+        <category>tts</category>
+        
+        
+        <category>tools</category>
+        
+      </item>
+    
+      <item>
+        <title>[Howto] Create your own app for UnRaid</title>
+        <description>&lt;p&gt;Unraid provide an App store via its &lt;a href=&quot;https://forums.unraid.net/topic/38582-plug-in-community-applications/&quot;&gt;community app plugin&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-community-app-plugin.png&quot; alt=&quot;Going step by step&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With this it becomes really easy for everyone to install any app on Unraid: Just click install and voila your Unraid server is up and running.&lt;/p&gt;
+
+&lt;p&gt;What about publishing your own app there ? Wouldn’t it be a great way to let it get adopted by the whole unraid community ?&lt;/p&gt;
+
+&lt;p&gt;If you ask me I will tell you: &lt;strong&gt;Yes definitely!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Furthermore this is totally free and very easy compared to some other ecosystems.&lt;/p&gt;
+
+&lt;p&gt;Let’s have a look about that!&lt;/p&gt;
+
+&lt;h2 id=&quot;create-your-own-app-store&quot;&gt;Create your own app store&lt;/h2&gt;
+
+&lt;p&gt;I created mine here if you are interested in the end results feel free to have a look: &lt;a href=&quot;https://github.com/sebastienvermeille/unraid-docker-templates&quot;&gt;https://github.com/sebastienvermeille/unraid-docker-templates&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Let’s see how it works:&lt;/p&gt;
+
+&lt;p&gt;1) First you have to create a public git repository (on github or whatever)
+2) Then inside of it we will declare some templates for our docker applications.&lt;/p&gt;
+
+&lt;p&gt;Here is the template I have created for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sonos2mqtt&lt;/code&gt; app:&lt;/p&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sonos2mqtt.xml
+
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;Container&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;version=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;2&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Name&amp;gt;&lt;/span&gt;sonos2mqtt&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Name&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Registry&amp;gt;&lt;/span&gt;https://hub.docker.com/r/svrooij/&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Registry&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Repository&amp;gt;&lt;/span&gt;svrooij/sonos2mqtt&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Repository&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Github&amp;gt;&lt;/span&gt;https://github.com/svrooij/sonos2mqtt&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Github&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Network&amp;gt;&lt;/span&gt;bridge&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Network&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;MyIP/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Privileged&amp;gt;&lt;/span&gt;false&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Privileged&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Support&amp;gt;&lt;/span&gt;https://svrooij.github.io/sonos2mqtt&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Support&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Project/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Overview&amp;gt;&lt;/span&gt;
+        Bridge between Sonos and mqtt server
+        Provide features like notifications or text-to-speech, publish sonos status to mqtt and so on.
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Overview&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Category&amp;gt;&lt;/span&gt;HomeAutomation:&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Category&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;WebUI&amp;gt;&lt;/span&gt;http://[IP]:[PORT:8080]/status&lt;span class=&quot;nt&quot;&gt;&amp;lt;/WebUI&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;TemplateURL/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Icon&amp;gt;&lt;/span&gt;https://raw.githubusercontent.com/sebastienvermeille/unraid-docker-templates/main/images/mqtt2sonos_icon.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Icon&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ExtraParams/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;PostArgs/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;DateInstalled&amp;gt;&lt;/span&gt;1527397055&lt;span class=&quot;nt&quot;&gt;&amp;lt;/DateInstalled&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;DonateText/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;DonateLink/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;DonateImg/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;MinVer/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Description&amp;gt;&lt;/span&gt;It is very important to set the `Ip of this docker (sonos listener host)` field correctly otherwise the web
+        ui won&apos;t work. (You can run this container without then grab the ip edit and set it)&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Description&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Networking&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;Mode&amp;gt;&lt;/span&gt;bridge&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Mode&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;Publish&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;Port&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;HostPort&amp;gt;&lt;/span&gt;6329&lt;span class=&quot;nt&quot;&gt;&amp;lt;/HostPort&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;ContainerPort&amp;gt;&lt;/span&gt;6329&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ContainerPort&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;Protocol&amp;gt;&lt;/span&gt;tcp&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Protocol&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Port&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Publish&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Networking&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Data&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;Volume&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;HostDir&amp;gt;&lt;/span&gt;/mnt/user/appdata/sonos2mqtt&lt;span class=&quot;nt&quot;&gt;&amp;lt;/HostDir&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;ContainerDir&amp;gt;&lt;/span&gt;/data&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ContainerDir&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;Mode&amp;gt;&lt;/span&gt;rw&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Mode&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Volume&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/Data&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Environment/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Labels/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Host Port&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;6329&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Default=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;6329&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Mode=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;tcp&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Description=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Container Port: 6329&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Port&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Display=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;always&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Mask=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;6329&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Config&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;IP of one known sonos speaker&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SONOS2MQTT_DEVICE&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Default=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Description=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;(device discovery doesnt always work inside docker)&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Variable&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Display=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;always&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Mask=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/Config&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Mqtt connection string&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SONOS2MQTT_MQTT&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Default=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Description=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mqtt(s)://[user]:[password]@[host]:[port]&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Variable&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Display=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;always&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Mask=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/Config&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Publish distinct (optional)&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SONOS2MQTT_DISTINCT&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Default=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Description=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Publish distinct or not&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Variable&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Display=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;advanced&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Mask=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Config&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Ip of this docker (sonos listener host)&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SONOS_LISTENER_HOST&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Default=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Description=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Variable&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Display=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;always&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Mask=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/Config&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;AppData Config Path&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/config&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Default=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/mnt/user/appdata/sonos2mqtt&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Mode=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rw&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Description=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Container Path: /config&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Path&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Display=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;advanced-hide&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Mask=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;/mnt/user/appdata/sonos2mqtt&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Config&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Text to speech endpoint url (optional)&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SONOS_TTS_ENDPOINT&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Default=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Description=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Variable&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Display=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;always&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Mask=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/Config&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Config&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Text to speech language (optional)&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Target=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;SONOS_TTS_LANG&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Default=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;en-US&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Description=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Variable&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Display=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;always&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;Required=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;Mask=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;false&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/Config&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/Container&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;As you can see it’s just a simple xml file declaring a bit ports, environment variables, paths and so on.&lt;/p&gt;
+
+&lt;p&gt;You can define here multiple type of configurations:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Variable: ENV variable name&lt;/li&gt;
+  &lt;li&gt;Port: A port mapping&lt;/li&gt;
+  &lt;li&gt;Path: A path exposed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For more details you can read this page of &lt;a href=&quot;https://wiki.unraid.net/DockerTemplateSchema&quot;&gt;unraid’s wiki&lt;/a&gt; it’s very good documented.&lt;/p&gt;
+
+&lt;p&gt;3) Then we have to tell unraid to fetch our templates
+To do so you simply go to your unraid instance and select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Docker&lt;/code&gt; tab.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-select-docker.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then on the bottom of the page add the url of the git repository you have created at step 1):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-custom-template-repository.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And click &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SAVE&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;4) Now you can create a docker container with your template:&lt;/p&gt;
+
+&lt;p&gt;Click on &lt;img src=&quot;../assets/img/articles/unraid-add-container-button.png&quot; alt=&quot;&quot; /&gt; and then select your own template:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-select-custom-template.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And then all the configuration you defined in the xml file will be rendered as follow:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-display-custom-template.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see we can define custom values, optional values, masked values for password etc. it is really powerful thank’s Unraid Devs!&lt;/p&gt;
+
+&lt;h2 id=&quot;integrate-your-docker-template-repository-with-the-community-apps-plugin&quot;&gt;Integrate your docker template repository with the community apps plugin&lt;/h2&gt;
+
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wiki.unraid.net/DockerTemplateSchema&quot;&gt;Docker template schema&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://forums.unraid.net/topic/57181-docker-faq/#comment-566084&quot;&gt;Docker FAQ - Host app on community applications plugin&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 14 Jun 2022 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/unraid/unraid-create-custom-docker-template.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/unraid/unraid-create-custom-docker-template.html</guid>
+        
+        <category>docker</category>
+        
+        
+        <category>unraid</category>
+        
+      </item>
+    
+      <item>
+        <title>Falmeshot - Do screenshots and annotate them in seconds !</title>
+        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;As developer we have to explain stuff. This is our DNA, explain how the program works, explain where the user has to click and so on.&lt;/p&gt;
+
+&lt;p&gt;I falled in love with this great tool called &lt;strong&gt;Flameshot&lt;/strong&gt; which works on Linux Mac and Windows and is totally free.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-it-works&quot;&gt;How it works&lt;/h2&gt;
+
+&lt;p&gt;Just push your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prt scr&lt;/code&gt; shortcut and then you are in!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/flameshot-demo.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see there are plenty of usefull tools which appears, first you select the area which interest you (crop).&lt;/p&gt;
+
+&lt;p&gt;And then you can:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Draw squares, arrows, lines, circles, free draw&lt;/li&gt;
+  &lt;li&gt;Add texts&lt;/li&gt;
+  &lt;li&gt;Add numbered circles (they increment at each click very handy!)&lt;/li&gt;
+  &lt;li&gt;You can blur some sensitive data&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can download it here: &lt;a href=&quot;https://flameshot.org/#download&quot;&gt;https://flameshot.org/#download&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;A super powerful tool for free and which does the job!&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://flameshot.org/&quot;&gt;Flameshot - Official website&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/tools/linux-screenshots-flameshot.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/tools/linux-screenshots-flameshot.html</guid>
+        
+        <category>linux</category>
+        
+        <category>windows</category>
+        
+        <category>mac</category>
+        
+        <category>screenshot</category>
+        
+        
+        <category>tools</category>
+        
+      </item>
+    
+      <item>
+        <title>[WIP][How to] Fix Jetbrains shortcuts on i3wm</title>
+        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;1) In jetbrains toolbox app &amp;gt; tools: enable generate shortcuts and define the path to be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.local/bin&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;:~/.local/bin
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note: It will only work for new installations (remove and reinstall your apps evtl)&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://youtrack.jetbrains.com/issue/IDEA-206235&quot;&gt;Jetbrains youtrack ticket&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/tools/Fix-jetbrains-shortcuts-i3.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/tools/Fix-jetbrains-shortcuts-i3.html</guid>
+        
+        <category>linux</category>
+        
+        <category>i3wm</category>
+        
+        
+        <category>tools</category>
+        
+      </item>
+    
+      <item>
+        <title>[Howto] Bind PrtScr key in i3wm with Falmeshot to take screenshots</title>
+        <description>&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nano ~/.config/i3/config&lt;/code&gt; (or vim whatever)&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ~/.config/i3/config&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# bind flameshot to printscr button&lt;/span&gt;
+bindsym Print &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;flameshot gui
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then:
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i3-msg reload&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i3-msg restart&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Voila !&lt;/p&gt;
+</description>
+        <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/linux/Bind-flameshot-to-printscr-i3wm.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/linux/Bind-flameshot-to-printscr-i3wm.html</guid>
+        
+        <category>i3wm</category>
+        
+        
+        <category>linux</category>
+        
+      </item>
+    
+      <item>
+        <title>Step Builder - Design pattern</title>
+        <description>&lt;p&gt;The &lt;strong&gt;StepBuilder&lt;/strong&gt; pattern is a derivative of &lt;a href=&quot;https://www.geeksforgeeks.org/builder-design-pattern/&quot;&gt;Builder pattern&lt;/a&gt;. 
+You may never have heard about this pattern as it is not common to find it mentioned in books/articles about design patterns.&lt;/p&gt;
+
+&lt;p&gt;This design pattern is part of the &lt;strong&gt;object creation&lt;/strong&gt; design pattern category.
+It helps to create an instance of a class, but in a more assisted way than a builder would do.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-does-it-solve&quot;&gt;What does it solve&lt;/h2&gt;
+
+&lt;p&gt;As opposite to a general builder, the step builder assist the developer providing guidance during the object creation.&lt;/p&gt;
+
+&lt;p&gt;Each steps declare the next step so that the developer can not do any mistake or forget some mandatory steps.
+&lt;img src=&quot;../assets/img/articles/step-by-step.jpg&quot; alt=&quot;Going step by step&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is an example using traditional builder for an email:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/builder-pattern-weakness.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As we can see in point &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(1)&lt;/code&gt; the autocomplete show us methods: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withContent()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withFrom()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withTitle()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withTo()&lt;/code&gt; methods and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.build()&lt;/code&gt; right after having invoked &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.builder()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Which means that we could simply write the following code and have something perfectly fine regarding compilation:&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Example: Builder pattern weakness - can build empty objects&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Does it make sense to have an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Email&lt;/code&gt; instance without any from, to properties set ? Not really…&lt;/p&gt;
+
+&lt;div class=&quot;premonition error&quot;&gt;
+  &lt;div class=&quot;fa pn-error&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;p class=&quot;header&quot;&gt;PREMONITION ERROR: Invalid box type&lt;/p&gt;
+    You have specified an invalid box type &quot;question&quot;. You can customize your own box types in `_config.yml`.
+    See documentation for more help.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Wouldn’t it be better if we could enforce a bit the autocomplete to provide only invokable methods ?&lt;/p&gt;
+
+&lt;p&gt;Step builder pattern address this issue:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/step-builder-autocomplete-demo.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Using step builder pattern you no longer can forget to define &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;from&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;title&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;content&lt;/code&gt; properties when creating an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Email&lt;/code&gt; instance.
+Furthermore the order is controlled. As you can see we can not call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.setContent()&lt;/code&gt; method in the beginning. There is a sequence which define in which order each method can be called.&lt;/p&gt;
+
+&lt;h2 id=&quot;cool-but-how-does-it-works-&quot;&gt;Cool but how does it works ?&lt;/h2&gt;
+
+&lt;p&gt;The trick is to use a specific interface per step.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Email.java - StepBuilder implementation&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Getter&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@ToString&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IFrom&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (1) &amp;lt;-- here we expect IFrom &lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IFrom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (2) &amp;lt;-- IFrom declares ITo withFrom(String val)&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;ITo&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (3) &amp;lt;-- ITo -&amp;gt; ITitle -&amp;gt; IContent&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;ITitle&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITitle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (4) &amp;lt;-- ITitle -&amp;gt; IContent &lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;IContent&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IContent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (5) &amp;lt;-- IContent -&amp;gt; IBuild &lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;IBuild&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withContent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IBuild&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (6) &amp;lt;-- IBuild -&amp;gt; Email instance! Woohoo :) &lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;Email&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IContent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IBuild&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IBuild&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withContent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IContent&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITitle&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITo&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Email&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This code can be written by hand but let’s be honest it would be much easier with a generator no ? Good news, a lot of generator exists for multiple IDE.&lt;/p&gt;
+
+&lt;p&gt;If you are using IntelliJ I suggest you this plugin that I maintain: &lt;a href=&quot;https://plugins.jetbrains.com/plugin/16792-stepbuilder-codegen&quot;&gt;stepbuilder-codegen&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can generate this code in a very few steps.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;As usual for design pattern you can find my example implementation &lt;a href=&quot;https://github.com/sebastienvermeille/java-design-patterns/tree/main/step-builder&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This pattern provide compile time issue when an object is not correctly constructed which is definitely a plus. 
+I like the fluent coding style which render the code much more intuitive. This is like some UX design for developers using your API.&lt;/p&gt;
+
+&lt;p&gt;I see it as a quality when an API provide such way of using it. I was used to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Mockito&lt;/code&gt; (a testing library for Java) which provide some fluent API too.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://plugins.jetbrains.com/plugin/16792-stepbuilder-codegen&quot;&gt;IntelliJ plugin to generate StepBuilder&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.svlada.com/step-builder-pattern/&quot;&gt;Svlada article&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://martinfowler.com/bliki/FluentInterface.html&quot;&gt;Martin Fowler - FluentInterface&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 09 Jun 2022 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/design%20pattern/stepbuilder-pattern.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/design%20pattern/stepbuilder-pattern.html</guid>
+        
+        
+        <category>design pattern</category>
+        
+      </item>
+    
+      <item>
+        <title>Gitignore.io - Generate your gitignore files in seconds!</title>
+        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Writing a good and efficient &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; file might be difficult if we consider everything:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Each IDE / Operating System add its kind of files and pollute your git repository with things which should not be there. (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Thumbs.db&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.DS_Store&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.project&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.idea/&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;...&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you plan to share your git account with multiple developers, then many chances are that they will not be on the same OS, IDE than you causing some undesired files being pushed to your git repository.&lt;/p&gt;
+
+&lt;p&gt;In order to simplify the life of each contributor of your project (and even yours) having a good .gitignore is important.&lt;/p&gt;
+
+&lt;p&gt;To avoid that I personally use a free online tool called &lt;a href=&quot;http://gitignore.io&quot;&gt;gitignore.io&lt;/a&gt; which generates a .gitignore file based on some tags that I provide. This is very handy and incredibly fast!&lt;/p&gt;
+
+&lt;h2 id=&quot;how-it-works&quot;&gt;How it works&lt;/h2&gt;
+
+&lt;p&gt;1) Choose some predefined tags
+&lt;img src=&quot;../assets/img/articles/gitignoreio-demo.gif&quot; alt=&quot;Demo: how to use gitignoreio&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2) Click &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Create&lt;/code&gt;, and then you will have a generated content to copy and paste into your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; file similar to this:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# .gitignore&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Created by https://www.toptal.com/developers/gitignore/api/java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;### Eclipse ### :fire:&lt;/span&gt;
+.metadata
+bin/
+tmp/
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.tmp
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.bak
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.swp
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+&lt;span class=&quot;c&quot;&gt;# External tool builders&lt;/span&gt;
+.externalToolBuilders/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;3) Last but not least you can at any time add new tags by using the edit link provided.&lt;/p&gt;
+
+&lt;p&gt;In this example: &lt;a href=&quot;https://www.toptal.com/developers/gitignore?templates=java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode&quot;&gt;https://www.toptal.com/developers/gitignore?templates=java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;This tool is really handy to me, I hope it will be also for you&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://gitignore.io&quot;&gt;gitignore.io&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 08 Jun 2022 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/tools/git-ignore-io.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/tools/git-ignore-io.html</guid>
+        
+        <category>git</category>
+        
+        
+        <category>tools</category>
+        
+      </item>
+    
+      <item>
+        <title>How to handle exceptions on @RestController with springboot webflux when the underservice return a Mono.error()</title>
+        <description>&lt;p&gt;I had issue to handle exceptions using webflux and found the solution in &lt;a href=&quot;https://youtu.be/Lc3dHbQ-CFo?t=380&quot;&gt;this video&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://youtu.be/Lc3dHbQ-CFo?t=380&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/languages/java/spring-webflux-onErrorReturn-catch-exceptions.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/languages/java/spring-webflux-onErrorReturn-catch-exceptions.html</guid>
+        
+        <category>spring</category>
+        
+        <category>reactive</category>
+        
+        
+        <category>languages</category>
+        
+        <category>java</category>
+        
+      </item>
+    
+  </channel>
+</rss>

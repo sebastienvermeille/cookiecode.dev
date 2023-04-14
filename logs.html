@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CookieCode - CookieCode</title>
+    <title>CookieCode</title>
     <meta name="author"  content="svermeille">
     <meta name="description" content="In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.">
     <meta name="keywords"  content="cookiecode，svermeille, blog">
     <!-- Open Graph -->
-    <meta property="og:title" content="CookieCode - CookieCode">
+    <meta property="og:title" content="CookieCode">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://cookiecode.dev/oss/index.html">
+    <meta property="og:url" content="https://cookiecode.dev/logs">
     <meta property="og:baseurl" content="">
     <meta property="og:description" content="In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.">
     <meta property="og:site_name" content="CookieCode">
@@ -111,10 +111,19 @@
 <div
     class="g-banner home-banner banner-theme-default"
     data-theme="default"
-    style=""
+    style="background: url(https://images.unsplash.com/photo-1630824869986-a5b2f513b1f4) no-repeat center center; background-size: cover;"
 >
-    <h2>Open Source Software</h2>
-    <h3>OSS projects I maintain or contribute actively (best effort)</h3>
+    <h2>Welcome to zhonger's blog!</h2>
+    <h3>Writing, writing, writing ...</h3>
+    
+        <p class="meta-item">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-image"></use>
+            </svg>
+            
+                    Cover is provided by <a href="https://unsplash.com/@zhouyudesign" target="_blank">Eean Chen</a>
+            
+        </p>
     
 </div>
 
@@ -122,28 +131,172 @@
     <div class="article-list">
         <div class="post-content" style="padding-left: 30px;padding-right: 30px;width: auto;">
             <article class="markdown-body" style="width: auto;">
-                <p>2 OSS Projects</p>
+                <h1 id="更新日志">更新日志</h1>
+
+<h2 id="大事记">大事记</h2>
+
+<h3 id="2021">2021</h3>
+
 <ul>
-
-    <li>
-        <p class="archives-title">
-        <span class="archives-date">
-             <img src="/assets/img/oss/Apache_Maven_logo.svg">
-        </span>
-            <a href="/oss_projects/another-protobuf-maven-plugin"> Another protobuf maven plugin </a>
-        </p>
-    </li>
-
-    <li>
-        <p class="archives-title">
-        <span class="archives-date">
-             <img src="/assets/img/oss/stepbuilder-codegen.svg">
-        </span>
-            <a href="/oss_projects/stepbuilder-codegen-plugin"> Stepbuilder Codegen Plugin </a>
-        </p>
-    </li>
-
+  <li>2021年12月22日，发布 <a href="https://github.com/zhonger/jekyll-theme-H20-ac" rel="nofollow" target="_blank" class="extlinks">H20-ac</a> Jekyll 主题的第一个公开版本。</li>
+  <li>2021年12月24日，正式支持 gem 方式使用本主题。</li>
 </ul>
+
+<h3 id="2022">2022</h3>
+
+<ul>
+  <li>2022年1月6~11日，修复若干错误及优化了某些小细节。</li>
+  <li>2022年4月29日~30日，新增若干功能，修复某些小细节：
+    <ul>
+      <li>新增深色模式切换按钮</li>
+      <li>新增全站一键灰度化</li>
+      <li>新增时间格式配置</li>
+      <li>新增跟随内容索引导航高亮</li>
+      <li>新增五种提示框支持</li>
+      <li>升级 fancybox 到 v4.0 版本</li>
+      <li>修复了深色模式下一些有问题的样式。</li>
+    </ul>
+  </li>
+  <li>2022年5月1日，新增一些小工具及修复若干错误 ：
+    <ul>
+      <li>新增返回顶部按钮，当页面不在顶部且有向上滑动的动作时显示，当有向下滑动的动作或已经到顶部时自动隐藏。</li>
+      <li>修复返回顶部按钮在移动端不显示及无法还原触碰效果</li>
+      <li>新增代码片段一键复制按钮</li>
+      <li>移除遗留字体样式图标，全面 symbol 化。</li>
+      <li>修复网站 favicon 在子目录下无法正常显示的错误</li>
+    </ul>
+  </li>
+  <li>2022年5月2日，新增若干功能，修复某些错误：
+    <ul>
+      <li>新增 Waline 评论支持</li>
+      <li>归档页年份右端新增生肖与地支小图标</li>
+      <li>修复 cover 字段无法在页面模板中生效，现已与 post 统一。</li>
+      <li>修复复制按钮显示问题</li>
+    </ul>
+  </li>
+  <li>2022年5月14日，新增若干功能及优化，修复某些错误：
+    <ul>
+      <li>新增移动端文章导航</li>
+      <li>优化 Prism 库，切换到自动加载模式，所有 Prism 支持的代码类型均可识别。</li>
+      <li>添加 Prism 代码主题配置项，可根据需要在配置中更改。</li>
+      <li>代码块支持显示行号</li>
+      <li>调整代码块复制按钮位置，以免挡住代码，并自动显示代码块的类型。</li>
+      <li>新增 <a href="https://busuanzi.ibruce.info/" rel="nofollow" target="_blank" class="extlinks">不蒜子</a> 统计方式</li>
+      <li>修复代码块关键字样式问题</li>
+    </ul>
+  </li>
+  <li>2022年5月16日，新增若干功能，修复某些样式错误：
+    <ul>
+      <li>新增 umami 统计方式支持</li>
+      <li>新增显式版权声明</li>
+      <li>新增主题版本号显示</li>
+      <li>修复图片宽度默认为原始宽度，最大宽度为 100%。</li>
+    </ul>
+  </li>
+  <li>2022年5月22日，新增若干功能，修复某些错误：
+    <ul>
+      <li>新增多评论切换按钮</li>
+      <li>新增最近更新一次时间</li>
+      <li>新增时间本地化</li>
+      <li>修复模式切换后 Disqus 未主动跟随切换模式问题</li>
+      <li>缩短字数统计显示长度</li>
+    </ul>
+  </li>
+  <li>2022年5月23~26日，新增若干功能：
+    <ul>
+      <li>新增多种 Prism 主题支持</li>
+      <li>新增文章置顶功能</li>
+      <li>新增封面图片作者及链接</li>
+      <li>升级 jekyll-paginate 为 jekyll-paginate-v2</li>
+    </ul>
+  </li>
+  <li>2022年6月1日，修复某些问题：
+    <ul>
+      <li>修复分页对应文章列表错误</li>
+    </ul>
+  </li>
+  <li>2022年7月2日~6日，新增若干功能：
+    <ul>
+      <li>新增 Github Action 版本自动发布、推送包到 Rubygem</li>
+      <li>新增 Cookie 使用提示</li>
+      <li>新增站点使用条款</li>
+      <li>根据频次对 Tags 重新排序（比原始排序更准确）</li>
+      <li>新增左右键切换文章的快捷键（仅适用于文章页）</li>
+      <li>对文章样式做了一些优化</li>
+    </ul>
+  </li>
+  <li>2022年7月20日~8月1日，新增若干功能，修复某些错误：
+    <ul>
+      <li>新增“朋友们”单页面，支持带图标的链接</li>
+      <li>新增二级菜单栏配置支持</li>
+      <li>新增个人 Markdown CV 中英文页面（可打印）</li>
+      <li>更改默认字体为 <a href="https://github.com/chawyehsu/lxgw-wenkai-webfont" rel="nofollow" target="_blank" class="extlinks">LXGW</a> （落霞孤鹜字体）</li>
+      <li>修改 Cookie 使用提示默认有效不弹出时间为一年</li>
+      <li>修复因文章元信息过多造成溢出背景区域</li>
+      <li>对页面样式做了一些优化</li>
+    </ul>
+  </li>
+  <li>2022年8月31日，新增若干功能，修复某些错误：
+    <ul>
+      <li>新增 Mermaid 流程图支持</li>
+      <li>新增站内站外链接区分（适用于文章和页面的内容部分）</li>
+      <li>调整页面内容最大宽度及其他相应布局</li>
+      <li>新增 Categories 页面</li>
+      <li>新增统计小插件</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="节点信息">节点信息</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>托管方</th>
+      <th>支持访问域名</th>
+      <th>IPv4</th>
+      <th>IPv6</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Netlify</td>
+      <td><a href="https://h2o-ac.lisz.me" rel="nofollow" target="_blank" class="extlinks">h2o-ac.lisz.me</a></td>
+      <td>是</td>
+      <td>是</td>
+      <td>全球性节点</td>
+    </tr>
+    <tr>
+      <td>Github</td>
+      <td><a href="https://h2o-ac.lisz.ink" rel="nofollow" target="_blank" class="extlinks">h2o-ac.lisz.ink</a></td>
+      <td>是</td>
+      <td>否</td>
+      <td>美国节点</td>
+    </tr>
+    <tr>
+      <td>Cloudflare</td>
+      <td><a href="https://h2o-ac.pages.dev" rel="nofollow" target="_blank" class="extlinks">h2o-ac.pages.dev</a></td>
+      <td>是</td>
+      <td>是</td>
+      <td>全球性节点</td>
+    </tr>
+    <tr>
+      <td>Vercel</td>
+      <td><a href="https://h2o-ac.vercel.app" rel="nofollow" target="_blank" class="extlinks">h2o-ac.vercel.app</a></td>
+      <td>是</td>
+      <td>否</td>
+      <td>美国节点</td>
+    </tr>
+    <tr>
+      <td>Azure</td>
+      <td><a href="https://h2o-ac.lui.site" rel="nofollow" target="_blank" class="extlinks">h2o-ac.lui.site</a></td>
+      <td>是</td>
+      <td>否</td>
+      <td>国内香港节点</td>
+    </tr>
+  </tbody>
+</table>
 
             </article>
         </div>

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://cookiecode.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cookiecode.dev/" rel="alternate" type="text/html" /><updated>2023-04-14T04:46:02+00:00</updated><id>https://cookiecode.dev/feed.xml</id><title type="html">CookieCode</title><subtitle>In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.</subtitle><author><name>svermeille</name></author><entry><title type="html">[Howto] Create a voice reminder for daily meeting using NodeRed</title><link href="https://cookiecode.dev/iot/nodered-daily-reminder.html" rel="alternate" type="text/html" title="[Howto] Create a voice reminder for daily meeting using NodeRed" /><published>2022-06-17T00:00:00+00:00</published><updated>2022-06-17T00:00:00+00:00</updated><id>https://cookiecode.dev/iot/nodered-daily-reminder</id><content type="html" xml:base="https://cookiecode.dev/iot/nodered-daily-reminder.html"><![CDATA[<div class="premonition info"> <div class="header"> <svg class="icon info" aria-hidden="true"> <use xlink:href="#icon-info"></use> </svg> <div class="title"> Pre requisiste </div> </div> <div class="content"> <p>This article suppose you have a running nodered instance.</p>
+
+<p>If you don’t have one yet have a look <a href="https://nodered.org/docs/getting-started/">here</a> first.</p>
+
+
+
+ </div> </div>
+<h2 id="goal">Goal</h2>
+
+<div class="premonition note"> <div class="header"> <svg class="icon note" aria-hidden="true"> <use xlink:href="#icon-note"></use> </svg> <div class="title"> As a passionated programmer I need a reminder at `08:58` each working day (monday to friday) </div> </div> <div class="content"> <p>That way if I am totally focussed on my coding session I still get a reminder.</p>
+
+
+
+ </div> </div>
+<h3 id="acceptance-criteria">Acceptance criteria:</h3>
+<ul>
+  <li>A notification sound will be played in SONOS to remind me about it (audio effect)
+    <ul>
+      <li>This sound will be generated using <a href="https://ttsmp3.com/">ttsmp3.com </a>free online tool
+        <ul>
+          <li>given text: <code class="language-plaintext highlighter-rouge">Sir, the daily meeting starts in a few. Are you ready ?</code></li>
+          <li>voice: <code class="language-plaintext highlighter-rouge">US English / Matthew</code></li>
+          <li>note: You can download the mp3 file <a href="../assets/audio/daily-meeting-reminder.mp3">here</a> directly</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>A philips HUE effect will appear on my led strip (visual effect)</li>
+</ul>
+
+<p>This way we have some fallback in the system and can reduce late joins of 99.9% :+1:</p>
+
+<h3 id="implementation-using-nodered">Implementation using NodeRed</h3>
+
+<p>In order to achieve that we will need two nodered extensions:</p>
+<ul>
+  <li>Sonos</li>
+  <li>Hue</li>
+</ul>
+
+<div class="premonition warning"> <div class="header"> <svg class="icon warning" aria-hidden="true"> <use xlink:href="#icon-warning"></use> </svg> <div class="title"> Warning </div> </div> <div class="content"> <p>TO COMPLETE</p>
+
+
+
+ </div> </div>
+<p>Basically here we will have the following flow:</p>
+
+<p><img src="../assets/img/articles/nodered-predaily-meeting-reminder.png" alt="" /></p>
+
+<p>First we trigger this only at <code class="language-plaintext highlighter-rouge">08:58</code> during working days:</p>
+
+<p><img src="../assets/img/articles/noderaid-predaily-scheduler.png" alt="" /></p>
+
+<div class="premonition warning"> <div class="header"> <svg class="icon warning" aria-hidden="true"> <use xlink:href="#icon-warning"></use> </svg> <div class="title"> Warning </div> </div> <div class="content"> <p>Node red will use the timezone defined in your instance. (If you run under docker you can define it via the env <code class="language-plaintext highlighter-rouge">TZ=Europe/Paris</code> or something else based on your region.)</p>
+
+<p>(This concerns point 2) of the screenshot)</p>
+
+
+
+ </div> </div>
+<p>Then we trigger some actions</p>
+
+<div class="premonition warning"> <div class="header"> <svg class="icon warning" aria-hidden="true"> <use xlink:href="#icon-warning"></use> </svg> <div class="title"> Warning </div> </div> <div class="content"> <p>TO COMPLETE</p>
+
+
+
+ </div> </div>
+<p>Here is the snippet of code that you can import into node red directly:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">//</span><span class="w"> </span><span class="err">TO</span><span class="w"> </span><span class="err">DO</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="references">References</h2>]]></content><author><name>sbeex</name></author><category term="iot" /><category term="nodered" /><category term="sonos" /><category term="hue" /><category term="scrum" /><summary type="html"><![CDATA[info “Pre requisiste” This article suppose you have a running nodered instance. If you don’t have one yet have a look here first.]]></summary></entry><entry><title type="html">[Howto] Convert a text to a speech audio file for free using TTSMP3</title><link href="https://cookiecode.dev/tools/ttsmp3-free-online-text-to-speech.html" rel="alternate" type="text/html" title="[Howto] Convert a text to a speech audio file for free using TTSMP3" /><published>2022-06-16T00:00:00+00:00</published><updated>2022-06-16T00:00:00+00:00</updated><id>https://cookiecode.dev/tools/ttsmp3-free-online-text-to-speech</id><content type="html" xml:base="https://cookiecode.dev/tools/ttsmp3-free-online-text-to-speech.html"><![CDATA[<p>Sometimes you might need to have some audio sound based on text. Such tools are called TTS (Text to Speech).
+Many exists but rarely for free.</p>
+
+<p>I share with you one that I particularly like to use for my personal home automation notifications:</p>
+
+<p><img src="../assets/img/articles/ttsmp3.png" alt="" /></p>
+
+<p>It is totally free for a normal usage (Maximum 3K characters a day).</p>
+
+<p>I give you here an example so you can see how easy it is:</p>
+
+<p><img src="../assets/img/articles/ttsmp3-example.png" alt="" /></p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>I hope you will enjoy this tool if you have free other online tools to suggest please leave a comment!</p>
+
+<p>Cheers</p>]]></content><author><name>sbeex</name></author><category term="tools" /><category term="tts" /><summary type="html"><![CDATA[Sometimes you might need to have some audio sound based on text. Such tools are called TTS (Text to Speech). Many exists but rarely for free.]]></summary></entry><entry><title type="html">[Howto] Create your own app for UnRaid</title><link href="https://cookiecode.dev/unraid/unraid-create-custom-docker-template.html" rel="alternate" type="text/html" title="[Howto] Create your own app for UnRaid" /><published>2022-06-14T00:00:00+00:00</published><updated>2022-06-14T00:00:00+00:00</updated><id>https://cookiecode.dev/unraid/unraid-create-custom-docker-template</id><content type="html" xml:base="https://cookiecode.dev/unraid/unraid-create-custom-docker-template.html"><![CDATA[<p>Unraid provide an App store via its <a href="https://forums.unraid.net/topic/38582-plug-in-community-applications/">community app plugin</a>:</p>
+
+<p><img src="../assets/img/articles/unraid-community-app-plugin.png" alt="Going step by step" /></p>
+
+<p>With this it becomes really easy for everyone to install any app on Unraid: Just click install and voila your Unraid server is up and running.</p>
+
+<p>What about publishing your own app there ? Wouldn’t it be a great way to let it get adopted by the whole unraid community ?</p>
+
+<p>If you ask me I will tell you: <strong>Yes definitely!</strong></p>
+
+<p>Furthermore this is totally free and very easy compared to some other ecosystems.</p>
+
+<p>Let’s have a look about that!</p>
+
+<h2 id="create-your-own-app-store">Create your own app store</h2>
+
+<p>I created mine here if you are interested in the end results feel free to have a look: <a href="https://github.com/sebastienvermeille/unraid-docker-templates">https://github.com/sebastienvermeille/unraid-docker-templates</a></p>
+
+<p>Let’s see how it works:</p>
+
+<p>1) First you have to create a public git repository (on github or whatever)
+2) Then inside of it we will declare some templates for our docker applications.</p>
+
+<p>Here is the template I have created for <code class="language-plaintext highlighter-rouge">sonos2mqtt</code> app:</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sonos2mqtt.xml
+
+<span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;Container</span> <span class="na">version=</span><span class="s">"2"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Name&gt;</span>sonos2mqtt<span class="nt">&lt;/Name&gt;</span>
+    <span class="nt">&lt;Registry&gt;</span>https://hub.docker.com/r/svrooij/<span class="nt">&lt;/Registry&gt;</span>
+    <span class="nt">&lt;Repository&gt;</span>svrooij/sonos2mqtt<span class="nt">&lt;/Repository&gt;</span>
+    <span class="nt">&lt;Github&gt;</span>https://github.com/svrooij/sonos2mqtt<span class="nt">&lt;/Github&gt;</span>
+    <span class="nt">&lt;Network&gt;</span>bridge<span class="nt">&lt;/Network&gt;</span>
+    <span class="nt">&lt;MyIP/&gt;</span>
+    <span class="nt">&lt;Privileged&gt;</span>false<span class="nt">&lt;/Privileged&gt;</span>
+    <span class="nt">&lt;Support&gt;</span>https://svrooij.github.io/sonos2mqtt<span class="nt">&lt;/Support&gt;</span>
+    <span class="nt">&lt;Project/&gt;</span>
+    <span class="nt">&lt;Overview&gt;</span>
+        Bridge between Sonos and mqtt server
+        Provide features like notifications or text-to-speech, publish sonos status to mqtt and so on.
+    <span class="nt">&lt;/Overview&gt;</span>
+    <span class="nt">&lt;Category&gt;</span>HomeAutomation:<span class="nt">&lt;/Category&gt;</span>
+    <span class="nt">&lt;WebUI&gt;</span>http://[IP]:[PORT:8080]/status<span class="nt">&lt;/WebUI&gt;</span>
+    <span class="nt">&lt;TemplateURL/&gt;</span>
+    <span class="nt">&lt;Icon&gt;</span>https://raw.githubusercontent.com/sebastienvermeille/unraid-docker-templates/main/images/mqtt2sonos_icon.png<span class="nt">&lt;/Icon&gt;</span>
+    <span class="nt">&lt;ExtraParams/&gt;</span>
+    <span class="nt">&lt;PostArgs/&gt;</span>
+    <span class="nt">&lt;DateInstalled&gt;</span>1527397055<span class="nt">&lt;/DateInstalled&gt;</span>
+    <span class="nt">&lt;DonateText/&gt;</span>
+    <span class="nt">&lt;DonateLink/&gt;</span>
+    <span class="nt">&lt;DonateImg/&gt;</span>
+    <span class="nt">&lt;MinVer/&gt;</span>
+    <span class="nt">&lt;Description&gt;</span>It is very important to set the `Ip of this docker (sonos listener host)` field correctly otherwise the web
+        ui won't work. (You can run this container without then grab the ip edit and set it)<span class="nt">&lt;/Description&gt;</span>
+    <span class="nt">&lt;Networking&gt;</span>
+        <span class="nt">&lt;Mode&gt;</span>bridge<span class="nt">&lt;/Mode&gt;</span>
+        <span class="nt">&lt;Publish&gt;</span>
+            <span class="nt">&lt;Port&gt;</span>
+                <span class="nt">&lt;HostPort&gt;</span>6329<span class="nt">&lt;/HostPort&gt;</span>
+                <span class="nt">&lt;ContainerPort&gt;</span>6329<span class="nt">&lt;/ContainerPort&gt;</span>
+                <span class="nt">&lt;Protocol&gt;</span>tcp<span class="nt">&lt;/Protocol&gt;</span>
+            <span class="nt">&lt;/Port&gt;</span>
+        <span class="nt">&lt;/Publish&gt;</span>
+    <span class="nt">&lt;/Networking&gt;</span>
+    <span class="nt">&lt;Data&gt;</span>
+        <span class="nt">&lt;Volume&gt;</span>
+            <span class="nt">&lt;HostDir&gt;</span>/mnt/user/appdata/sonos2mqtt<span class="nt">&lt;/HostDir&gt;</span>
+            <span class="nt">&lt;ContainerDir&gt;</span>/data<span class="nt">&lt;/ContainerDir&gt;</span>
+            <span class="nt">&lt;Mode&gt;</span>rw<span class="nt">&lt;/Mode&gt;</span>
+        <span class="nt">&lt;/Volume&gt;</span>
+    <span class="nt">&lt;/Data&gt;</span>
+    <span class="nt">&lt;Environment/&gt;</span>
+    <span class="nt">&lt;Labels/&gt;</span>
+    <span class="nt">&lt;Config</span> <span class="na">Name=</span><span class="s">"Host Port"</span> <span class="na">Target=</span><span class="s">"6329"</span> <span class="na">Default=</span><span class="s">"6329"</span> <span class="na">Mode=</span><span class="s">"tcp"</span> <span class="na">Description=</span><span class="s">"Container Port: 6329"</span> <span class="na">Type=</span><span class="s">"Port"</span> <span class="na">Display=</span><span class="s">"always"</span>
+            <span class="na">Required=</span><span class="s">"true"</span> <span class="na">Mask=</span><span class="s">"false"</span><span class="nt">&gt;</span>6329<span class="nt">&lt;/Config&gt;</span>
+    <span class="nt">&lt;Config</span> <span class="na">Name=</span><span class="s">"IP of one known sonos speaker"</span> <span class="na">Target=</span><span class="s">"SONOS2MQTT_DEVICE"</span> <span class="na">Default=</span><span class="s">""</span>
+            <span class="na">Description=</span><span class="s">"(device discovery doesnt always work inside docker)"</span> <span class="na">Type=</span><span class="s">"Variable"</span> <span class="na">Display=</span><span class="s">"always"</span> <span class="na">Required=</span><span class="s">"true"</span>
+            <span class="na">Mask=</span><span class="s">"false"</span><span class="nt">&gt;&lt;/Config&gt;</span>
+    <span class="nt">&lt;Config</span> <span class="na">Name=</span><span class="s">"Mqtt connection string"</span> <span class="na">Target=</span><span class="s">"SONOS2MQTT_MQTT"</span> <span class="na">Default=</span><span class="s">""</span>
+            <span class="na">Description=</span><span class="s">"mqtt(s)://[user]:[password]@[host]:[port]"</span> <span class="na">Type=</span><span class="s">"Variable"</span> <span class="na">Display=</span><span class="s">"always"</span> <span class="na">Required=</span><span class="s">"true"</span>
+            <span class="na">Mask=</span><span class="s">"false"</span><span class="nt">&gt;&lt;/Config&gt;</span>
+    <span class="nt">&lt;Config</span> <span class="na">Name=</span><span class="s">"Publish distinct (optional)"</span> <span class="na">Target=</span><span class="s">"SONOS2MQTT_DISTINCT"</span> <span class="na">Default=</span><span class="s">"true"</span>
+            <span class="na">Description=</span><span class="s">"Publish distinct or not"</span> <span class="na">Type=</span><span class="s">"Variable"</span> <span class="na">Display=</span><span class="s">"advanced"</span> <span class="na">Required=</span><span class="s">"false"</span>
+            <span class="na">Mask=</span><span class="s">"false"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/Config&gt;</span>
+    <span class="nt">&lt;Config</span> <span class="na">Name=</span><span class="s">"Ip of this docker (sonos listener host)"</span> <span class="na">Target=</span><span class="s">"SONOS_LISTENER_HOST"</span> <span class="na">Default=</span><span class="s">""</span>
+            <span class="na">Description=</span><span class="s">""</span> <span class="na">Type=</span><span class="s">"Variable"</span> <span class="na">Display=</span><span class="s">"always"</span> <span class="na">Required=</span><span class="s">"true"</span>
+            <span class="na">Mask=</span><span class="s">"false"</span><span class="nt">&gt;&lt;/Config&gt;</span>
+    <span class="nt">&lt;Config</span> <span class="na">Name=</span><span class="s">"AppData Config Path"</span> <span class="na">Target=</span><span class="s">"/config"</span> <span class="na">Default=</span><span class="s">"/mnt/user/appdata/sonos2mqtt"</span> <span class="na">Mode=</span><span class="s">"rw"</span>
+            <span class="na">Description=</span><span class="s">"Container Path: /config"</span>
+            <span class="na">Type=</span><span class="s">"Path"</span> <span class="na">Display=</span><span class="s">"advanced-hide"</span> <span class="na">Required=</span><span class="s">"true"</span> <span class="na">Mask=</span><span class="s">"false"</span><span class="nt">&gt;</span>/mnt/user/appdata/sonos2mqtt<span class="nt">&lt;/Config&gt;</span>
+    <span class="nt">&lt;Config</span> <span class="na">Name=</span><span class="s">"Text to speech endpoint url (optional)"</span> <span class="na">Target=</span><span class="s">"SONOS_TTS_ENDPOINT"</span> <span class="na">Default=</span><span class="s">""</span>
+            <span class="na">Description=</span><span class="s">""</span> <span class="na">Type=</span><span class="s">"Variable"</span> <span class="na">Display=</span><span class="s">"always"</span> <span class="na">Required=</span><span class="s">"false"</span>
+            <span class="na">Mask=</span><span class="s">"false"</span><span class="nt">&gt;&lt;/Config&gt;</span>
+    <span class="nt">&lt;Config</span> <span class="na">Name=</span><span class="s">"Text to speech language (optional)"</span> <span class="na">Target=</span><span class="s">"SONOS_TTS_LANG"</span> <span class="na">Default=</span><span class="s">"en-US"</span>
+            <span class="na">Description=</span><span class="s">""</span> <span class="na">Type=</span><span class="s">"Variable"</span> <span class="na">Display=</span><span class="s">"always"</span> <span class="na">Required=</span><span class="s">"false"</span>
+            <span class="na">Mask=</span><span class="s">"false"</span><span class="nt">&gt;&lt;/Config&gt;</span>
+<span class="nt">&lt;/Container&gt;</span>
+</code></pre></div></div>
+<p>As you can see it’s just a simple xml file declaring a bit ports, environment variables, paths and so on.</p>
+
+<p>You can define here multiple type of configurations:</p>
+<ul>
+  <li>Variable: ENV variable name</li>
+  <li>Port: A port mapping</li>
+  <li>Path: A path exposed</li>
+</ul>
+
+<p>For more details you can read this page of <a href="https://wiki.unraid.net/DockerTemplateSchema">unraid’s wiki</a> it’s very good documented.</p>
+
+<p>3) Then we have to tell unraid to fetch our templates
+To do so you simply go to your unraid instance and select the <code class="language-plaintext highlighter-rouge">Docker</code> tab.</p>
+
+<p><img src="../assets/img/articles/unraid-select-docker.png" alt="" /></p>
+
+<p>Then on the bottom of the page add the url of the git repository you have created at step 1):</p>
+
+<p><img src="../assets/img/articles/unraid-custom-template-repository.png" alt="" /></p>
+
+<p>And click <code class="language-plaintext highlighter-rouge">SAVE</code>.</p>
+
+<p>4) Now you can create a docker container with your template:</p>
+
+<p>Click on <img src="../assets/img/articles/unraid-add-container-button.png" alt="" /> and then select your own template:</p>
+
+<p><img src="../assets/img/articles/unraid-select-custom-template.png" alt="" /></p>
+
+<p>And then all the configuration you defined in the xml file will be rendered as follow:</p>
+
+<p><img src="../assets/img/articles/unraid-display-custom-template.png" alt="" /></p>
+
+<p>As you can see we can define custom values, optional values, masked values for password etc. it is really powerful thank’s Unraid Devs!</p>
+
+<h2 id="integrate-your-docker-template-repository-with-the-community-apps-plugin">Integrate your docker template repository with the community apps plugin</h2>
+
+<p>TODO</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li><a href="https://wiki.unraid.net/DockerTemplateSchema">Docker template schema</a></li>
+  <li><a href="https://forums.unraid.net/topic/57181-docker-faq/#comment-566084">Docker FAQ - Host app on community applications plugin</a>.</li>
+</ul>]]></content><author><name>sbeex</name></author><category term="unraid" /><category term="docker" /><summary type="html"><![CDATA[Unraid provide an App store via its community app plugin:]]></summary></entry><entry><title type="html">[Howto] Bind PrtScr key in i3wm with Falmeshot to take screenshots</title><link href="https://cookiecode.dev/linux/Bind-flameshot-to-printscr-i3wm.html" rel="alternate" type="text/html" title="[Howto] Bind PrtScr key in i3wm with Falmeshot to take screenshots" /><published>2022-06-10T00:00:00+00:00</published><updated>2022-06-10T00:00:00+00:00</updated><id>https://cookiecode.dev/linux/Bind-flameshot-to-printscr-i3wm</id><content type="html" xml:base="https://cookiecode.dev/linux/Bind-flameshot-to-printscr-i3wm.html"><![CDATA[<p><code class="language-plaintext highlighter-rouge">nano ~/.config/i3/config</code> (or vim whatever)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ~/.config/i3/config</span>
+
+<span class="c"># bind flameshot to printscr button</span>
+bindsym Print <span class="nb">exec </span>flameshot gui
+</code></pre></div></div>
+
+<p>Then:
+<code class="language-plaintext highlighter-rouge">i3-msg reload</code> and <code class="language-plaintext highlighter-rouge">i3-msg restart</code></p>
+
+<p>Voila !</p>]]></content><author><name>sbeex</name></author><category term="linux" /><category term="i3wm" /><summary type="html"><![CDATA[nano ~/.config/i3/config (or vim whatever)]]></summary></entry><entry><title type="html">[WIP][How to] Fix Jetbrains shortcuts on i3wm</title><link href="https://cookiecode.dev/tools/Fix-jetbrains-shortcuts-i3.html" rel="alternate" type="text/html" title="[WIP][How to] Fix Jetbrains shortcuts on i3wm" /><published>2022-06-10T00:00:00+00:00</published><updated>2022-06-10T00:00:00+00:00</updated><id>https://cookiecode.dev/tools/Fix-jetbrains-shortcuts-i3</id><content type="html" xml:base="https://cookiecode.dev/tools/Fix-jetbrains-shortcuts-i3.html"><![CDATA[<h2 id="introduction">Introduction</h2>
+
+<p>1) In jetbrains toolbox app &gt; tools: enable generate shortcuts and define the path to be <code class="language-plaintext highlighter-rouge">~/.local/bin</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:~/.local/bin
+</code></pre></div></div>
+
+<p>Note: It will only work for new installations (remove and reinstall your apps evtl)</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li><a href="https://youtrack.jetbrains.com/issue/IDEA-206235">Jetbrains youtrack ticket</a></li>
+</ul>]]></content><author><name>sbeex</name></author><category term="tools" /><category term="linux" /><category term="i3wm" /><summary type="html"><![CDATA[Introduction]]></summary></entry><entry><title type="html">Falmeshot - Do screenshots and annotate them in seconds !</title><link href="https://cookiecode.dev/tools/linux-screenshots-flameshot.html" rel="alternate" type="text/html" title="Falmeshot - Do screenshots and annotate them in seconds !" /><published>2022-06-10T00:00:00+00:00</published><updated>2022-06-10T00:00:00+00:00</updated><id>https://cookiecode.dev/tools/linux-screenshots-flameshot</id><content type="html" xml:base="https://cookiecode.dev/tools/linux-screenshots-flameshot.html"><![CDATA[<h2 id="introduction">Introduction</h2>
+
+<p>As developer we have to explain stuff. This is our DNA, explain how the program works, explain where the user has to click and so on.</p>
+
+<p>I falled in love with this great tool called <strong>Flameshot</strong> which works on Linux Mac and Windows and is totally free.</p>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>Just push your <code class="language-plaintext highlighter-rouge">prt scr</code> shortcut and then you are in!</p>
+
+<p><img src="../assets/img/articles/flameshot-demo.jpg" alt="" /></p>
+
+<p>As you can see there are plenty of usefull tools which appears, first you select the area which interest you (crop).</p>
+
+<p>And then you can:</p>
+<ul>
+  <li>Draw squares, arrows, lines, circles, free draw</li>
+  <li>Add texts</li>
+  <li>Add numbered circles (they increment at each click very handy!)</li>
+  <li>You can blur some sensitive data</li>
+  <li>…</li>
+</ul>
+
+<p>You can download it here: <a href="https://flameshot.org/#download">https://flameshot.org/#download</a></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>A super powerful tool for free and which does the job!</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li><a href="https://flameshot.org/">Flameshot - Official website</a></li>
+</ul>]]></content><author><name>sbeex</name></author><category term="tools" /><category term="linux" /><category term="windows" /><category term="mac" /><category term="screenshot" /><summary type="html"><![CDATA[Introduction]]></summary></entry><entry><title type="html">Step Builder - Design pattern</title><link href="https://cookiecode.dev/design%20pattern/stepbuilder-pattern.html" rel="alternate" type="text/html" title="Step Builder - Design pattern" /><published>2022-06-09T00:00:00+00:00</published><updated>2022-06-09T00:00:00+00:00</updated><id>https://cookiecode.dev/design%20pattern/stepbuilder-pattern</id><content type="html" xml:base="https://cookiecode.dev/design%20pattern/stepbuilder-pattern.html"><![CDATA[<p>The <strong>StepBuilder</strong> pattern is a derivative of <a href="https://www.geeksforgeeks.org/builder-design-pattern/">Builder pattern</a>. 
+You may never have heard about this pattern as it is not common to find it mentioned in books/articles about design patterns.</p>
+
+<p>This design pattern is part of the <strong>object creation</strong> design pattern category.
+It helps to create an instance of a class, but in a more assisted way than a builder would do.</p>
+
+<h2 id="what-does-it-solve">What does it solve</h2>
+
+<p>As opposite to a general builder, the step builder assist the developer providing guidance during the object creation.</p>
+
+<p>Each steps declare the next step so that the developer can not do any mistake or forget some mandatory steps.
+<img src="../assets/img/articles/step-by-step.jpg" alt="Going step by step" /></p>
+
+<p>Here is an example using traditional builder for an email:</p>
+
+<p><img src="../assets/img/articles/builder-pattern-weakness.png" alt="" /></p>
+
+<p>As we can see in point <code class="language-plaintext highlighter-rouge">(1)</code> the autocomplete show us methods: <code class="language-plaintext highlighter-rouge">.withContent()</code>, <code class="language-plaintext highlighter-rouge">.withFrom()</code>, <code class="language-plaintext highlighter-rouge">.withTitle()</code>, <code class="language-plaintext highlighter-rouge">.withTo()</code> methods and <code class="language-plaintext highlighter-rouge">.build()</code> right after having invoked <code class="language-plaintext highlighter-rouge">.builder()</code>.</p>
+
+<p>Which means that we could simply write the following code and have something perfectly fine regarding compilation:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Example: Builder pattern weakness - can build empty objects</span>
+<span class="kd">final</span> <span class="kt">var</span> <span class="n">email</span> <span class="o">=</span> <span class="nc">Email</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+  <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</code></pre></div></div>
+
+<p>Does it make sense to have an <code class="language-plaintext highlighter-rouge">Email</code> instance without any from, to properties set ? Not really…</p>
+
+<div class="premonition error">
+  <div class="fa pn-error"></div>
+  <div class="content">
+    <p class="header">PREMONITION ERROR: Invalid box type</p>
+    You have specified an invalid box type "question". You can customize your own box types in `_config.yml`.
+    See documentation for more help.
+  </div>
+</div>
+
+<p>Wouldn’t it be better if we could enforce a bit the autocomplete to provide only invokable methods ?</p>
+
+<p>Step builder pattern address this issue:</p>
+
+<p><img src="../assets/img/articles/step-builder-autocomplete-demo.gif" alt="" /></p>
+
+<p>Using step builder pattern you no longer can forget to define <code class="language-plaintext highlighter-rouge">from</code>, <code class="language-plaintext highlighter-rouge">to</code>, <code class="language-plaintext highlighter-rouge">title</code>, <code class="language-plaintext highlighter-rouge">content</code> properties when creating an <code class="language-plaintext highlighter-rouge">Email</code> instance.
+Furthermore the order is controlled. As you can see we can not call <code class="language-plaintext highlighter-rouge">.setContent()</code> method in the beginning. There is a sequence which define in which order each method can be called.</p>
+
+<h2 id="cool-but-how-does-it-works-">Cool but how does it works ?</h2>
+
+<p>The trick is to use a specific interface per step.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Email.java - StepBuilder implementation</span>
+<span class="nd">@Getter</span>
+<span class="nd">@ToString</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Email</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">from</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">to</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">content</span><span class="o">;</span>
+
+  <span class="kd">private</span> <span class="nf">Email</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Builder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">from</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">from</span><span class="o">;</span>
+    <span class="n">to</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">to</span><span class="o">;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">title</span><span class="o">;</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="na">content</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">IFrom</span> <span class="nf">builder</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// (1) &lt;-- here we expect IFrom </span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Builder</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IFrom</span> <span class="o">{</span> <span class="c1">// (2) &lt;-- IFrom declares ITo withFrom(String val)</span>
+    <span class="nc">ITo</span> <span class="nf">withFrom</span><span class="o">(</span><span class="nc">String</span> <span class="n">val</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ITo</span> <span class="o">{</span> <span class="c1">// (3) &lt;-- ITo -&gt; ITitle -&gt; IContent</span>
+    <span class="nc">ITitle</span> <span class="nf">withTo</span><span class="o">(</span><span class="nc">String</span> <span class="n">val</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ITitle</span> <span class="o">{</span> <span class="c1">// (4) &lt;-- ITitle -&gt; IContent </span>
+    <span class="nc">IContent</span> <span class="nf">withTitle</span><span class="o">(</span><span class="nc">String</span> <span class="n">val</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IContent</span> <span class="o">{</span> <span class="c1">// (5) &lt;-- IContent -&gt; IBuild </span>
+    <span class="nc">IBuild</span> <span class="nf">withContent</span><span class="o">(</span><span class="nc">String</span> <span class="n">val</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IBuild</span> <span class="o">{</span> <span class="c1">// (6) &lt;-- IBuild -&gt; Email instance! Woohoo :) </span>
+    <span class="nc">Email</span> <span class="nf">build</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Builder</span> <span class="kd">implements</span> <span class="nc">IContent</span><span class="o">,</span> <span class="nc">ITitle</span><span class="o">,</span> <span class="nc">ITo</span><span class="o">,</span> <span class="nc">IFrom</span><span class="o">,</span> <span class="nc">IBuild</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">content</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">to</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">from</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="nf">Builder</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">IBuild</span> <span class="nf">withContent</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">content</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">IContent</span> <span class="nf">withTitle</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">title</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">ITitle</span> <span class="nf">withTo</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">to</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="nc">ITo</span> <span class="nf">withFrom</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">val</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">from</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">Email</span> <span class="nf">build</span><span class="o">()</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">Email</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>This code can be written by hand but let’s be honest it would be much easier with a generator no ? Good news, a lot of generator exists for multiple IDE.</p>
+
+<p>If you are using IntelliJ I suggest you this plugin that I maintain: <a href="https://plugins.jetbrains.com/plugin/16792-stepbuilder-codegen">stepbuilder-codegen</a>.</p>
+
+<p>You can generate this code in a very few steps.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>As usual for design pattern you can find my example implementation <a href="https://github.com/sebastienvermeille/java-design-patterns/tree/main/step-builder">here</a>.</p>
+
+<p>This pattern provide compile time issue when an object is not correctly constructed which is definitely a plus. 
+I like the fluent coding style which render the code much more intuitive. This is like some UX design for developers using your API.</p>
+
+<p>I see it as a quality when an API provide such way of using it. I was used to <code class="language-plaintext highlighter-rouge">Mockito</code> (a testing library for Java) which provide some fluent API too.</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li><a href="https://plugins.jetbrains.com/plugin/16792-stepbuilder-codegen">IntelliJ plugin to generate StepBuilder</a>.</li>
+  <li><a href="https://www.svlada.com/step-builder-pattern/">Svlada article</a></li>
+  <li><a href="https://martinfowler.com/bliki/FluentInterface.html">Martin Fowler - FluentInterface</a></li>
+</ul>]]></content><author><name>sbeex</name></author><category term="design pattern" /><summary type="html"><![CDATA[The StepBuilder pattern is a derivative of Builder pattern. You may never have heard about this pattern as it is not common to find it mentioned in books/articles about design patterns.]]></summary></entry><entry><title type="html">Gitignore.io - Generate your gitignore files in seconds!</title><link href="https://cookiecode.dev/tools/git-ignore-io.html" rel="alternate" type="text/html" title="Gitignore.io - Generate your gitignore files in seconds!" /><published>2022-06-08T00:00:00+00:00</published><updated>2022-06-08T00:00:00+00:00</updated><id>https://cookiecode.dev/tools/git-ignore-io</id><content type="html" xml:base="https://cookiecode.dev/tools/git-ignore-io.html"><![CDATA[<h2 id="introduction">Introduction</h2>
+
+<p>Writing a good and efficient <code class="language-plaintext highlighter-rouge">.gitignore</code> file might be difficult if we consider everything:</p>
+<ul>
+  <li>Each IDE / Operating System add its kind of files and pollute your git repository with things which should not be there. (<code class="language-plaintext highlighter-rouge">Thumbs.db</code>, <code class="language-plaintext highlighter-rouge">.DS_Store</code>, <code class="language-plaintext highlighter-rouge">.project</code>, <code class="language-plaintext highlighter-rouge">.idea/</code>, <code class="language-plaintext highlighter-rouge">...</code>)</li>
+</ul>
+
+<p>If you plan to share your git account with multiple developers, then many chances are that they will not be on the same OS, IDE than you causing some undesired files being pushed to your git repository.</p>
+
+<p>In order to simplify the life of each contributor of your project (and even yours) having a good .gitignore is important.</p>
+
+<p>To avoid that I personally use a free online tool called <a href="http://gitignore.io">gitignore.io</a> which generates a .gitignore file based on some tags that I provide. This is very handy and incredibly fast!</p>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>1) Choose some predefined tags
+<img src="../assets/img/articles/gitignoreio-demo.gif" alt="Demo: how to use gitignoreio" /></p>
+
+<p>2) Click <code class="language-plaintext highlighter-rouge">Create</code>, and then you will have a generated content to copy and paste into your <code class="language-plaintext highlighter-rouge">.gitignore</code> file similar to this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># .gitignore</span>
+<span class="c"># Created by https://www.toptal.com/developers/gitignore/api/java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode</span>
+<span class="c"># Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode</span>
+
+<span class="c">### Eclipse ### :fire:</span>
+.metadata
+bin/
+tmp/
+<span class="k">*</span>.tmp
+<span class="k">*</span>.bak
+<span class="k">*</span>.swp
+<span class="k">*</span>~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+<span class="c"># External tool builders</span>
+.externalToolBuilders/
+</code></pre></div></div>
+
+<p>3) Last but not least you can at any time add new tags by using the edit link provided.</p>
+
+<p>In this example: <a href="https://www.toptal.com/developers/gitignore?templates=java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode">https://www.toptal.com/developers/gitignore?templates=java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode</a></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This tool is really handy to me, I hope it will be also for you</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li><a href="http://gitignore.io">gitignore.io</a></li>
+</ul>]]></content><author><name>sbeex</name></author><category term="tools" /><category term="git" /><summary type="html"><![CDATA[Introduction]]></summary></entry><entry><title type="html">How to handle exceptions on @RestController with springboot webflux when the underservice return a Mono.error()</title><link href="https://cookiecode.dev/languages/java/spring-webflux-onErrorReturn-catch-exceptions.html" rel="alternate" type="text/html" title="How to handle exceptions on @RestController with springboot webflux when the underservice return a Mono.error()" /><published>2021-04-24T00:00:00+00:00</published><updated>2021-04-24T00:00:00+00:00</updated><id>https://cookiecode.dev/languages/java/spring-webflux-onErrorReturn-catch-exceptions</id><content type="html" xml:base="https://cookiecode.dev/languages/java/spring-webflux-onErrorReturn-catch-exceptions.html"><![CDATA[<p>I had issue to handle exceptions using webflux and found the solution in <a href="https://youtu.be/Lc3dHbQ-CFo?t=380">this video</a>.</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li>https://youtu.be/Lc3dHbQ-CFo?t=380</li>
+</ul>]]></content><author><name>sbeex</name></author><category term="languages" /><category term="java" /><category term="spring" /><category term="reactive" /><summary type="html"><![CDATA[I had issue to handle exceptions using webflux and found the solution in this video.]]></summary></entry></feed>
