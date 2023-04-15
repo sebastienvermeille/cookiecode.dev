@@ -1,4 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://cookiecode.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cookiecode.dev/" rel="alternate" type="text/html" /><updated>2023-04-15T09:58:02+00:00</updated><id>https://cookiecode.dev/feed.xml</id><title type="html">CookieCode</title><subtitle>In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.</subtitle><author><name>svermeille</name></author><entry><title type="html">[Howto] Create a voice reminder for daily meeting using NodeRed</title><link href="https://cookiecode.dev/iot/nodered-daily-reminder.html" rel="alternate" type="text/html" title="[Howto] Create a voice reminder for daily meeting using NodeRed" /><published>2022-06-17T00:00:00+00:00</published><updated>2022-06-17T00:00:00+00:00</updated><id>https://cookiecode.dev/iot/nodered-daily-reminder</id><content type="html" xml:base="https://cookiecode.dev/iot/nodered-daily-reminder.html"><![CDATA[<div class="premonition info"> <div class="header"> <svg class="icon info" aria-hidden="true"> <use xlink:href="#icon-info"></use> </svg> <div class="title"> Pre requisiste </div> </div> <div class="content"> <p>This article suppose you have a running nodered instance.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://cookiecode.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cookiecode.dev/" rel="alternate" type="text/html" /><updated>2023-04-15T10:58:40+00:00</updated><id>https://cookiecode.dev/feed.xml</id><title type="html">CookieCode</title><subtitle>In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.</subtitle><author><name>svermeille</name></author><entry><title type="html">[Cirrus CI] Using cache and fingerprint</title><link href="https://cookiecode.dev/ci/cd/cirrus-ci-using-cache-and-fingerprint.html" rel="alternate" type="text/html" title="[Cirrus CI] Using cache and fingerprint" /><published>2023-04-15T00:00:00+00:00</published><updated>2023-04-15T00:00:00+00:00</updated><id>https://cookiecode.dev/ci/cd/-cirrus-ci-using-cache-and-fingerprint</id><content type="html" xml:base="https://cookiecode.dev/ci/cd/cirrus-ci-using-cache-and-fingerprint.html"><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Imagine: You want to create two tasks in your Cirrus pipeline:</p>
+<ul>
+  <li>build_task</li>
+  <li>test_task (depends on build_task)</li>
+</ul>
+
+<p><strong>You should not expect that the output of <code class="language-plaintext highlighter-rouge">build_task</code> is available in <code class="language-plaintext highlighter-rouge">test_task</code></strong>. Some other CI does that some not such as Cirrus.</p>
+
+<h2 id="how-can-i-share-files-between-multiple-cirrus-ci-tasks-">How can I share files between multiple Cirrus-CI tasks ?</h2>
+
+<p>To address that use case, Cirrus recommends to use <code class="language-plaintext highlighter-rouge">cache</code>:</p>
+
+<blockquote>
+  <p>cache: instruction to persist files between task runs.</p>
+
+  <p>cf: https://cirrus-ci.org/guide/writing-tasks/#supported-instructions</p>
+</blockquote>
+
+<p>So basically the <code class="language-plaintext highlighter-rouge">build_task</code> will declare a cache:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#.cirrus.yml</span>
+<span class="na">build_task</span><span class="pi">:</span>
+  <span class="na">container</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">node:latest</span>
+  <span class="na">node_modules_cache</span><span class="pi">:</span> <span class="c1"># &lt;--- declare a cache</span>
+    <span class="na">folder</span><span class="pi">:</span> <span class="s">node_modules</span> <span class="c1"># &lt;--- this cache will contains this particular folder</span>
+    <span class="na">fingerprint_script</span><span class="pi">:</span> <span class="s">cat package-lock.json</span> <span class="c1"># &lt;--- This is the most important notion that I will explain later</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">npm install</span>
+</code></pre></div></div>
+<p>And then this cache can be reused in the <code class="language-plaintext highlighter-rouge">test_task</code>.</p>
+
+<h2 id="importance-of-fingerprint_script">Importance of fingerprint_script</h2>
+
+<blockquote>
+  <p>There are only two hard things in computer science: cache invalidation and naming things. – Phil Karlton</p>
+</blockquote>
+
+<p>This single line is <strong>responsible for the cache invalidation</strong>.</p>
+
+<p>For cirrus, as long as the evaluation of <code class="language-plaintext highlighter-rouge">fingerprint_script</code> stays the same -&gt; it reuse the cache.</p>
+
+<p>The only way to make it repopulate the cache is to have a different value here.</p>
+
+<h3 id="situations">Situations</h3>
+<p>(Real life issue) As a beginner I used the following:
+<code class="language-plaintext highlighter-rouge">fingerprint_script: echo $CIRRUS_OS</code></p>
+
+<p>This was a terrible <strong>mistake</strong>.
+Here is why: my cache was based on the OS used by the cirrus agent running the pipeline.
+As our cluster was based on linux, that value stayed constantly the same. So whatever I could have build or changed the cached folder was still to reuse from cirrus perspective.</p>
+
+<p>It can be useful to use the CIRRUS_OS as part of the finger print but much more rarely as a single value.</p>
+
+<p>Here are some good candidates for a cirrus cache fingerprint:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cat yarn.lock</code> // It will change as soon as you update the version of a dependency/add/remove dependencies pretty nice to reuse the same node_modules dir</li>
+  <li><code class="language-plaintext highlighter-rouge">cat package-lock.json</code></li>
+</ul>
+
+<h2 id="references">References</h2>
+<p>To read more about caching with cirrus: https://cirrus-ci.org/guide/writing-tasks/#cache-instruction</p>]]></content><author><name>sbeex</name></author><category term="CI/CD" /><category term="ci" /><category term="cirrus-ci" /><category term="cirrus" /><summary type="html"><![CDATA[Introduction Imagine: You want to create two tasks in your Cirrus pipeline: build_task test_task (depends on build_task)]]></summary></entry><entry><title type="html">[Howto] Create a voice reminder for daily meeting using NodeRed</title><link href="https://cookiecode.dev/iot/nodered-daily-reminder.html" rel="alternate" type="text/html" title="[Howto] Create a voice reminder for daily meeting using NodeRed" /><published>2022-06-17T00:00:00+00:00</published><updated>2022-06-17T00:00:00+00:00</updated><id>https://cookiecode.dev/iot/nodered-daily-reminder</id><content type="html" xml:base="https://cookiecode.dev/iot/nodered-daily-reminder.html"><![CDATA[<div class="premonition info"> <div class="header"> <svg class="icon info" aria-hidden="true"> <use xlink:href="#icon-info"></use> </svg> <div class="title"> Pre requisiste </div> </div> <div class="content"> <p>This article suppose you have a running nodered instance.</p>
 
 <p>If you don’t have one yet have a look <a href="https://nodered.org/docs/getting-started/">here</a> first.</p>
 

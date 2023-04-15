@@ -5,27 +5,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Howto] Create a voice reminder for daily meeting using NodeRed - CookieCode</title>
+    <title>[Cirrus CI] Using cache and fingerprint - CookieCode</title>
     <meta name="author"  content="svermeille">
-    <meta name="description" content="[Howto] Create a voice reminder for daily meeting using NodeRed">
-    <meta name="keywords"  content="nodered, sonos, hue, scrum">
+    <meta name="description" content="[Cirrus CI] Using cache and fingerprint">
+    <meta name="keywords"  content="ci, cirrus-ci, cirrus">
     <!-- Open Graph -->
-    <meta property="og:title" content="[Howto] Create a voice reminder for daily meeting using NodeRed - CookieCode">
+    <meta property="og:title" content="[Cirrus CI] Using cache and fingerprint - CookieCode">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://cookiecode.dev/iot/nodered-daily-reminder.html">
+    <meta property="og:url" content="https://cookiecode.dev/ci/cd/cirrus-ci-using-cache-and-fingerprint.html">
     <meta property="og:baseurl" content="">
     <meta property="og:description" content="In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.">
     <meta property="og:site_name" content="CookieCode">
     <meta property="og:gray" content="false">
     
-    <meta property="og:previous_url" content="/ci/cd/cirrus-ci-using-cache-and-fingerprint.html">
     
-    
-    <meta property="og:next_url" content="/tools/ttsmp3-free-online-text-to-speech.html">
+    <meta property="og:next_url" content="/iot/nodered-daily-reminder.html">
     
     <meta property="post-date-format" content="0">
     
-    <meta property="post-date" content="2022-06-17 00:00:00 +0000" />
+    <meta property="post-date" content="2023-04-15 00:00:00 +0000" />
     
     
     
@@ -133,17 +131,15 @@
         <div class="post-tags">
           
             
-              <a href="/tags.html#nodered" class="post-tag">nodered</a>
+              <a href="/tags.html#ci" class="post-tag">ci</a>
             
-              <a href="/tags.html#sonos" class="post-tag">sonos</a>
+              <a href="/tags.html#cirrus-ci" class="post-tag">cirrus-ci</a>
             
-              <a href="/tags.html#hue" class="post-tag">hue</a>
-            
-              <a href="/tags.html#scrum" class="post-tag">scrum</a>
+              <a href="/tags.html#cirrus" class="post-tag">cirrus</a>
             
           
         </div>
-        <h1>[Howto] Create a voice reminder for daily meeting using NodeRed</h1>
+        <h1>[Cirrus CI] Using cache and fingerprint</h1>
         <div class="post-meta">
           <span class="post-meta-item">
             <svg class="icon" aria-hidden="true">
@@ -151,13 +147,13 @@
             </svg>
             sbeex
           </span>
-          <time class="post-meta-item" datetime="22-06-17">
+          <time class="post-meta-item" datetime="23-04-15">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-calendar"></use>
             </svg>
             <span class="create-at"></span>
           </time>
-          <time class="post-meta-item" datetime="22-06-17">
+          <time class="post-meta-item" datetime="23-04-15">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-update"></use>
             </svg>
@@ -168,13 +164,13 @@
               <svg class="icon words" aria-hidden="true">
                 <use xlink:href="#icon-words"></use>
               </svg>
-              There are 1109 words totally 
+              There are 1808 words totally 
             </span>
             <span class="post-meta-item">
               <svg class="icon time" aria-hidden="true">
                 <use xlink:href="#icon-time"></use>
               </svg>
-              It may needs 4 minutes
+              It may needs 6 minutes
             </span>
             
               <span class="post-meta-item">
@@ -190,7 +186,7 @@
       </div>
       
       <div class="filter"></div>
-        <div class="post-cover" style="background: url('/assets/img/articles/node-red-icon-2.svg') center no-repeat; background-size: cover;"></div>
+        <div class="post-cover" style="background: url('/assets/img/articles/cirrus-ci-icon.svg') center no-repeat; background-size: cover;"></div>
       
     </header>
     <div class="post-content visible">
@@ -200,92 +196,82 @@
       <div class="container">  
         <div class="contents">
           <article class="markdown-body">
-            <div class="premonition info"> <div class="header"> <svg class="icon info" aria-hidden="true"> <use xlink:href="#icon-info"></use> </svg> <div class="title"> Pre requisiste </div> </div> <div class="content"> <p>This article suppose you have a running nodered instance.</p>
-
-<p>If you don’t have one yet have a look <a href="https://nodered.org/docs/getting-started/" rel="nofollow" target="_blank" class="extlinks">here</a> first.</p>
-
-
-
- </div> </div>
-<h2 id="goal">Goal</h2>
-
-<div class="premonition note"> <div class="header"> <svg class="icon note" aria-hidden="true"> <use xlink:href="#icon-note"></use> </svg> <div class="title"> As a passionated programmer I need a reminder at `08:58` each working day (monday to friday) </div> </div> <div class="content"> <p>That way if I am totally focussed on my coding session I still get a reminder.</p>
-
-
-
- </div> </div>
-<h3 id="acceptance-criteria">Acceptance criteria:</h3>
+            <h2 id="introduction">Introduction</h2>
+<p>Imagine: You want to create two tasks in your Cirrus pipeline:</p>
 <ul>
-  <li>A notification sound will be played in SONOS to remind me about it (audio effect)
-    <ul>
-      <li>This sound will be generated using <a href="https://ttsmp3.com/" rel="nofollow" target="_blank" class="extlinks">ttsmp3.com </a>free online tool
-        <ul>
-          <li>given text: <code class="language-plaintext highlighter-rouge">Sir, the daily meeting starts in a few. Are you ready ?</code>
-</li>
-          <li>voice: <code class="language-plaintext highlighter-rouge">US English / Matthew</code>
-</li>
-          <li>note: You can download the mp3 file <a href="../assets/audio/daily-meeting-reminder.mp3">here</a> directly</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>A philips HUE effect will appear on my led strip (visual effect)</li>
+  <li>build_task</li>
+  <li>test_task (depends on build_task)</li>
 </ul>
 
-<p>This way we have some fallback in the system and can reduce late joins of 99.9% :+1:</p>
+<p><strong>You should not expect that the output of <code class="language-plaintext highlighter-rouge">build_task</code> is available in <code class="language-plaintext highlighter-rouge">test_task</code></strong>. Some other CI does that some not such as Cirrus.</p>
 
-<h3 id="implementation-using-nodered">Implementation using NodeRed</h3>
+<h2 id="how-can-i-share-files-between-multiple-cirrus-ci-tasks-">How can I share files between multiple Cirrus-CI tasks ?</h2>
 
-<p>In order to achieve that we will need two nodered extensions:</p>
+<p>To address that use case, Cirrus recommends to use <code class="language-plaintext highlighter-rouge">cache</code>:</p>
+
+<blockquote>
+  <p>cache: instruction to persist files between task runs.</p>
+
+  <p>cf: https://cirrus-ci.org/guide/writing-tasks/#supported-instructions</p>
+</blockquote>
+
+<p>So basically the <code class="language-plaintext highlighter-rouge">build_task</code> will declare a cache:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#.cirrus.yml</span>
+<span class="na">build_task</span><span class="pi">:</span>
+  <span class="na">container</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">node:latest</span>
+  <span class="na">node_modules_cache</span><span class="pi">:</span> <span class="c1"># &lt;--- declare a cache</span>
+    <span class="na">folder</span><span class="pi">:</span> <span class="s">node_modules</span> <span class="c1"># &lt;--- this cache will contains this particular folder</span>
+    <span class="na">fingerprint_script</span><span class="pi">:</span> <span class="s">cat package-lock.json</span> <span class="c1"># &lt;--- This is the most important notion that I will explain later</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">npm install</span>
+</code></pre></div></div>
+<p>And then this cache can be reused in the <code class="language-plaintext highlighter-rouge">test_task</code>.</p>
+
+<h2 id="importance-of-fingerprint_script">Importance of fingerprint_script</h2>
+
+<blockquote>
+  <p>There are only two hard things in computer science: cache invalidation and naming things. – Phil Karlton</p>
+</blockquote>
+
+<p>This single line is <strong>responsible for the cache invalidation</strong>.</p>
+
+<p>For cirrus, as long as the evaluation of <code class="language-plaintext highlighter-rouge">fingerprint_script</code> stays the same -&gt; it reuse the cache.</p>
+
+<p>The only way to make it repopulate the cache is to have a different value here.</p>
+
+<h3 id="situations">Situations</h3>
+<p>(Real life issue) As a beginner I used the following:
+<code class="language-plaintext highlighter-rouge">fingerprint_script: echo $CIRRUS_OS</code></p>
+
+<p>This was a terrible <strong>mistake</strong>.
+Here is why: my cache was based on the OS used by the cirrus agent running the pipeline.
+As our cluster was based on linux, that value stayed constantly the same. So whatever I could have build or changed the cached folder was still to reuse from cirrus perspective.</p>
+
+<p>It can be useful to use the CIRRUS_OS as part of the finger print but much more rarely as a single value.</p>
+
+<p>Here are some good candidates for a cirrus cache fingerprint:</p>
 <ul>
-  <li>Sonos</li>
-  <li>Hue</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">cat yarn.lock</code> // It will change as soon as you update the version of a dependency/add/remove dependencies pretty nice to reuse the same node_modules dir</li>
+  <li><code class="language-plaintext highlighter-rouge">cat package-lock.json</code></li>
 </ul>
-
-<div class="premonition warning"> <div class="header"> <svg class="icon warning" aria-hidden="true"> <use xlink:href="#icon-warning"></use> </svg> <div class="title"> Warning </div> </div> <div class="content"> <p>TO COMPLETE</p>
-
-
-
- </div> </div>
-<p>Basically here we will have the following flow:</p>
-
-<p><img src="../assets/img/articles/nodered-predaily-meeting-reminder.png" alt=""></p>
-
-<p>First we trigger this only at <code class="language-plaintext highlighter-rouge">08:58</code> during working days:</p>
-
-<p><img src="../assets/img/articles/noderaid-predaily-scheduler.png" alt=""></p>
-
-<div class="premonition warning"> <div class="header"> <svg class="icon warning" aria-hidden="true"> <use xlink:href="#icon-warning"></use> </svg> <div class="title"> Warning </div> </div> <div class="content"> <p>Node red will use the timezone defined in your instance. (If you run under docker you can define it via the env <code class="language-plaintext highlighter-rouge">TZ=Europe/Paris</code> or something else based on your region.)</p>
-
-<p>(This concerns point 2) of the screenshot)</p>
-
-
-
- </div> </div>
-<p>Then we trigger some actions</p>
-
-<div class="premonition warning"> <div class="header"> <svg class="icon warning" aria-hidden="true"> <use xlink:href="#icon-warning"></use> </svg> <div class="title"> Warning </div> </div> <div class="content"> <p>TO COMPLETE</p>
-
-
-
- </div> </div>
-<p>Here is the snippet of code that you can import into node red directly:</p>
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">//</span><span class="w"> </span><span class="err">TO</span><span class="w"> </span><span class="err">DO</span><span class="w">
-</span></code></pre></div></div>
 
 <h2 id="references">References</h2>
+<p>To read more about caching with cirrus: https://cirrus-ci.org/guide/writing-tasks/#cache-instruction</p>
 
             <div class="post-copyright">
               <p><span>Author：</span>svermeille for <a href="https://cookiecode.dev">CookieCode</a></p>
               <p>（<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" class="extlinks">CC BY-NC-SA 4.0</a> license）</p>
-              <p><span>title：</span>《 [Howto] Create a voice reminder for daily meeting using NodeRed 》</p>
-              <p><span>permalink：</span><a href="https://cookiecode.dev/iot/nodered-daily-reminder.html">https://cookiecode.dev/iot/nodered-daily-reminder.html</a></p>
+              <p><span>title：</span>《 [Cirrus CI] Using cache and fingerprint 》</p>
+              <p><span>permalink：</span><a href="https://cookiecode.dev/ci/cd/cirrus-ci-using-cache-and-fingerprint.html">https://cookiecode.dev/ci/cd/cirrus-ci-using-cache-and-fingerprint.html</a></p>
             </div>
           </article>
         </div>   
         <div class="table-of-contents">
           <h2>Contents</h2>
-          <ul><li><a href="#goal">Goal</a><ul><li><a href="#acceptance-criteria">Acceptance criteria:</a></li><li><a href="#implementation-using-nodered">Implementation using NodeRed</a></li></ul></li><li><a href="#references">References</a></li></ul>
+          <ul><li><a href="#introduction">Introduction</a></li><li><a href="#how-can-i-share-files-between-multiple-cirrus-ci-tasks-">How can I share files between multiple Cirrus-CI tasks ?</a></li><li><a href="#importance-of-fingerprint_script">Importance of fingerprint_script</a><ul><li><a href="#situations">Situations</a></li></ul></li><li><a href="#references">References</a></li></ul>
         </div>
       </div>
       
@@ -318,29 +304,17 @@
       </section>
       <section class="post-footer-item read-next">
         
-        <div class="read-next-item">
-          <a href="/ci/cd/cirrus-ci-using-cache-and-fingerprint.html" class="read-next-link" aria-label="[Cirrus CI] Using cache and fingerprint"></a>
-          <section>
-            <span>[Cirrus CI] Using cache and fingerprint</span>
-            <p>IntroductionImagine: You want to create two tasks in your...</p>
-          </section>
-          
-          <div class="filter"></div>
-          <img src="/assets/img/articles/cirrus-ci-icon.svg" alt="">
-          
-      </div>
-        
 
         
         <div class="read-next-item">
-          <a href="/tools/ttsmp3-free-online-text-to-speech.html" class="read-next-link" aria-label="[Howto] Convert a text to a speech audio file for free using TTSMP3"></a>
+          <a href="/iot/nodered-daily-reminder.html" class="read-next-link" aria-label="[Howto] Create a voice reminder for daily meeting using NodeRed"></a>
             <section>
-              <span>[Howto] Convert a text to a speech audio file for free using TTSMP3</span>
-              <p>Sometimes you might need to have some audio sound based o...</p>
+              <span>[Howto] Create a voice reminder for daily meeting using NodeRed</span>
+              <p>  info “Pre requisiste”This article suppose you have a ru...</p>
             </section>
             
             <div class="filter"></div>
-            <img src="/assets/img/articles/text-to-speech.png" alt="">
+            <img src="/assets/img/articles/node-red-icon-2.svg" alt="">
             
         </div>
         
@@ -550,7 +524,7 @@
 
           $(".post time span.create-at").html(local_post_date["date"]);
 
-          fetch("https://api.github.com/repos/svermeille/cookiecode.dev/commits?path=_posts/2022-06-17-nodered-daily-reminder.md")
+          fetch("https://api.github.com/repos/svermeille/cookiecode.dev/commits?path=_posts/2023-04-15--cirrus-ci-using-cache-and-fingerprint.md")
           .then((response) => {
             return response.json();
           })

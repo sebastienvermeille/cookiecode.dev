@@ -1,6 +1,12 @@
 [
   
     {
+      "title"    : "[Cirrus CI] Using cache and fingerprint",
+      "tags"     : "ci cirrus-ci cirrus",
+      "url"      : "/ci/cd/cirrus-ci-using-cache-and-fingerprint.html"
+    } ,
+  
+    {
       "title"    : "[Howto] Create a voice reminder for daily meeting using NodeRed",
       "tags"     : "nodered sonos hue scrum",
       "url"      : "/iot/nodered-daily-reminder.html"

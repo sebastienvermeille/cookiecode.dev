@@ -5,9 +5,90 @@
     <description>In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.</description>
     <link>https://cookiecode.dev//</link>
     <atom:link href="https://cookiecode.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 15 Apr 2023 09:58:02 +0000</pubDate>
-    <lastBuildDate>Sat, 15 Apr 2023 09:58:02 +0000</lastBuildDate>
+    <pubDate>Sat, 15 Apr 2023 10:58:40 +0000</pubDate>
+    <lastBuildDate>Sat, 15 Apr 2023 10:58:40 +0000</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>[Cirrus CI] Using cache and fingerprint</title>
+        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Imagine: You want to create two tasks in your Cirrus pipeline:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;build_task&lt;/li&gt;
+  &lt;li&gt;test_task (depends on build_task)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;You should not expect that the output of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;build_task&lt;/code&gt; is available in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test_task&lt;/code&gt;&lt;/strong&gt;. Some other CI does that some not such as Cirrus.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-can-i-share-files-between-multiple-cirrus-ci-tasks-&quot;&gt;How can I share files between multiple Cirrus-CI tasks ?&lt;/h2&gt;
+
+&lt;p&gt;To address that use case, Cirrus recommends to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cache&lt;/code&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;cache: instruction to persist files between task runs.&lt;/p&gt;
+
+  &lt;p&gt;cf: https://cirrus-ci.org/guide/writing-tasks/#supported-instructions&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So basically the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;build_task&lt;/code&gt; will declare a cache:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#.cirrus.yml&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;build_task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;container&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;node:latest&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;node_modules_cache&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &amp;lt;--- declare a cache&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;folder&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;node_modules&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &amp;lt;--- this cache will contains this particular folder&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;fingerprint_script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cat package-lock.json&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &amp;lt;--- This is the most important notion that I will explain later&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;npm install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;And then this cache can be reused in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test_task&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;importance-of-fingerprint_script&quot;&gt;Importance of fingerprint_script&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;There are only two hard things in computer science: cache invalidation and naming things. – Phil Karlton&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This single line is &lt;strong&gt;responsible for the cache invalidation&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;For cirrus, as long as the evaluation of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fingerprint_script&lt;/code&gt; stays the same -&amp;gt; it reuse the cache.&lt;/p&gt;
+
+&lt;p&gt;The only way to make it repopulate the cache is to have a different value here.&lt;/p&gt;
+
+&lt;h3 id=&quot;situations&quot;&gt;Situations&lt;/h3&gt;
+&lt;p&gt;(Real life issue) As a beginner I used the following:
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fingerprint_script: echo $CIRRUS_OS&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This was a terrible &lt;strong&gt;mistake&lt;/strong&gt;.
+Here is why: my cache was based on the OS used by the cirrus agent running the pipeline.
+As our cluster was based on linux, that value stayed constantly the same. So whatever I could have build or changed the cached folder was still to reuse from cirrus perspective.&lt;/p&gt;
+
+&lt;p&gt;It can be useful to use the CIRRUS_OS as part of the finger print but much more rarely as a single value.&lt;/p&gt;
+
+&lt;p&gt;Here are some good candidates for a cirrus cache fingerprint:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat yarn.lock&lt;/code&gt; // It will change as soon as you update the version of a dependency/add/remove dependencies pretty nice to reuse the same node_modules dir&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat package-lock.json&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;To read more about caching with cirrus: https://cirrus-ci.org/guide/writing-tasks/#cache-instruction&lt;/p&gt;
+</description>
+        <pubDate>Sat, 15 Apr 2023 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/ci/cd/cirrus-ci-using-cache-and-fingerprint.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/ci/cd/cirrus-ci-using-cache-and-fingerprint.html</guid>
+        
+        <category>ci</category>
+        
+        <category>cirrus-ci</category>
+        
+        <category>cirrus</category>
+        
+        
+        <category>CI/CD</category>
+        
+      </item>
     
       <item>
         <title>[Howto] Create a voice reminder for daily meeting using NodeRed</title>
