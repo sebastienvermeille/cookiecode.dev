@@ -4,7 +4,7 @@ title:  "[Cirrus CI] Using cache and fingerprint"
 author: sbeex
 categories: [ CI/CD ]
 tags: [ ci, cirrus-ci, cirrus ]
-cover: assets/img/articles/no-cover.png
+cover: assets/img/articles/cirrus-ci-icon.svg
 subtheme: sub-theme-git
 published: true
 ---
