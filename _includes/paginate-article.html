@@ -6,7 +6,7 @@
     {% if post.cover %}
         <div class="post-cover">
             <a class="post-link" href="{{ post.url | relative_url }}" title="{{ post.title }}"></a>
-            <img class="lazyload" src="/assets/img/loading.gif" data-src="{{ post.cover | relative_url }}" href="{{ post.url | relative_url }}" alt="">
+            <img class="lazyload" src="/assets/img/loading.gif" alt="Loading" data-src="{{ post.cover | relative_url }}" href="{{ post.url | relative_url }}" alt="">
         </div>
     {% endif %}
     <section class="post-preview">
