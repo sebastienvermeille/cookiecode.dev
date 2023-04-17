@@ -5,7 +5,7 @@
     <div class="page-links">
         {% if paginator.previous_page %}
             {% if paginator.previous_page == 1 %}
-            <a href="{{ "/blog/" | prepend: site.baseurl }}/index.html" class="page-link" title="Previous Page">&laquo;</a>
+            <a href="{{ "/blog/" | prepend: site.baseurl }}index.html" class="page-link" title="Previous Page">&laquo;</a>
             {% else %}
             <a href="{{ site.baseurl }}/blog/page{{ paginator.previous_page }}/index.html" class="page-link" title="Previous Page">&laquo;</a>
             {% endif %}
