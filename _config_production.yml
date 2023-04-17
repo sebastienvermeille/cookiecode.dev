@@ -38,7 +38,6 @@ nav:
   archives: '/archives.html'
   tags: '/tags.html'
   about:   
-    logs: '/logs.html'
     tos: '/tos.html'
     RSS: '/feed.xml'
     CV: '/cv.html'
