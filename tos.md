@@ -1,7 +1,7 @@
 ---
 layout: page
-home-title: Welcome to zhonger's blog!
-description: Writing, writing, writing ...
+home-title: Welcome to cookiecode.dev, svermeilles's blog!
+description: Learning, Writing ...
 ---
 
 # Terms of use of this website
