@@ -1,7 +1,7 @@
 ---
 layout: page
 home-title: Welcome to cookiecode.dev, svermeilles's blog!
-description: Learning, Writing ...
+description: Terms of use of this website
 ---
 
 # Terms of use of this website
