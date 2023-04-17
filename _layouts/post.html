@@ -170,7 +170,7 @@
     <section class="author-detail">
       <section class="post-footer-item author-card">
         <div class="avatar">
-          <img src="{{ site.avatar | relative_url }}" alt="">
+          <img src="{{ site.avatar | relative_url }}" alt="Profile picture">
         </div>
         <div class="author-name" rel="author">{{ site.author }}</div>
         <div class="bio">
@@ -200,7 +200,7 @@
           </section>
           {% if page.next.cover %}
           <div class="filter"></div>
-          <img src="{{ page.next.cover | relative_url }}" alt="">
+          <img src="{{ page.next.cover | relative_url }}" alt="Next article cover">
           {% endif %}
       </div>
         {% endif %}
@@ -214,7 +214,7 @@
             </section>
             {% if page.previous.cover %}
             <div class="filter"></div>
-            <img src="{{ page.previous.cover | relative_url }}" alt="">
+            <img src="{{ page.previous.cover | relative_url }}" alt="Previous article cover">
             {% endif %}
         </div>
         {% endif %}
