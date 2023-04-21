@@ -205,7 +205,7 @@ It helps to create an instance of a class, but in a more assisted way than a bui
 
 <p>Here is an example using traditional builder for an email:</p>
 
-<p><img src="../assets/img/articles/builder-pattern-weakness.png" alt=""></p>
+<p><img src="../assets/img/articles/builder-pattern-weakness.png" alt="builder pattern weakness"></p>
 
 <p>As we can see in point <code class="language-plaintext highlighter-rouge">(1)</code> the autocomplete show us methods: <code class="language-plaintext highlighter-rouge">.withContent()</code>, <code class="language-plaintext highlighter-rouge">.withFrom()</code>, <code class="language-plaintext highlighter-rouge">.withTitle()</code>, <code class="language-plaintext highlighter-rouge">.withTo()</code> methods and <code class="language-plaintext highlighter-rouge">.build()</code> right after having invoked <code class="language-plaintext highlighter-rouge">.builder()</code>.</p>
 
@@ -231,7 +231,7 @@ It helps to create an instance of a class, but in a more assisted way than a bui
 
 <p>Step builder pattern address this issue:</p>
 
-<p><img src="../assets/img/articles/step-builder-autocomplete-demo.gif" alt=""></p>
+<p><img src="../assets/img/articles/step-builder-autocomplete-demo.gif" alt="step builder autocomplete demo"></p>
 
 <p>Using step builder pattern you no longer can forget to define <code class="language-plaintext highlighter-rouge">from</code>, <code class="language-plaintext highlighter-rouge">to</code>, <code class="language-plaintext highlighter-rouge">title</code>, <code class="language-plaintext highlighter-rouge">content</code> properties when creating an <code class="language-plaintext highlighter-rouge">Email</code> instance.
 Furthermore the order is controlled. As you can see we can not call <code class="language-plaintext highlighter-rouge">.setContent()</code> method in the beginning. There is a sequence which define in which order each method can be called.</p>
@@ -451,6 +451,9 @@ I like the fluent coding style which render the code much more intuitive. This i
     </span>
     <span id="busuanzi_container_site_uv">
       👤 Total Visitors <span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span>
+      <a href="/tos.html">ToS</a>
     </span>
   </section>
   

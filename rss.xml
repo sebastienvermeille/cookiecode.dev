@@ -5,8 +5,8 @@
     <description>In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.</description>
     <link>https://cookiecode.dev//</link>
     <atom:link href="https://cookiecode.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 21 Apr 2023 06:17:19 +0000</pubDate>
-    <lastBuildDate>Fri, 21 Apr 2023 06:17:19 +0000</lastBuildDate>
+    <pubDate>Fri, 21 Apr 2023 17:40:19 +0000</pubDate>
+    <lastBuildDate>Fri, 21 Apr 2023 17:40:19 +0000</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
     
       <item>
@@ -163,11 +163,11 @@ As our cluster was based on linux, that value stayed constantly the same. So wha
  &lt;/div&gt; &lt;/div&gt;
 &lt;p&gt;Basically here we will have the following flow:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/nodered-predaily-meeting-reminder.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/nodered-predaily-meeting-reminder.png&quot; alt=&quot;screenshot of node-red flow&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;First we trigger this only at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;08:58&lt;/code&gt; during working days:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/noderaid-predaily-scheduler.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/noderaid-predaily-scheduler.png&quot; alt=&quot;edit inject node screenshot&quot; /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;premonition warning&quot;&gt; &lt;div class=&quot;header&quot;&gt; &lt;svg class=&quot;icon warning&quot; aria-hidden=&quot;true&quot;&gt; &lt;use xlink:href=&quot;#icon-warning&quot;&gt;&lt;/use&gt; &lt;/svg&gt; &lt;div class=&quot;title&quot;&gt; Warning &lt;/div&gt; &lt;/div&gt; &lt;div class=&quot;content&quot;&gt; &lt;p&gt;Node red will use the timezone defined in your instance. (If you run under docker you can define it via the env &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TZ=Europe/Paris&lt;/code&gt; or something else based on your region.)&lt;/p&gt;
 
@@ -213,13 +213,13 @@ Many exists but rarely for free.&lt;/p&gt;
 
 &lt;p&gt;I share with you one that I particularly like to use for my personal home automation notifications:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/ttsmp3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/ttsmp3.png&quot; alt=&quot;ttsmp3 logo&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;It is totally free for a normal usage (Maximum 3K characters a day).&lt;/p&gt;
 
 &lt;p&gt;I give you here an example so you can see how easy it is:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/ttsmp3-example.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/ttsmp3-example.png&quot; alt=&quot;screenshot of ttsmp3.com website&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
 
@@ -352,23 +352,23 @@ Many exists but rarely for free.&lt;/p&gt;
 &lt;p&gt;3) Then we have to tell unraid to fetch our templates
 To do so you simply go to your unraid instance and select the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Docker&lt;/code&gt; tab.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-select-docker.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-select-docker.png&quot; alt=&quot;unraid docker menu&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then on the bottom of the page add the url of the git repository you have created at step 1):&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-custom-template-repository.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-custom-template-repository.png&quot; alt=&quot;unraid template repositories&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And click &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SAVE&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;4) Now you can create a docker container with your template:&lt;/p&gt;
 
-&lt;p&gt;Click on &lt;img src=&quot;../assets/img/articles/unraid-add-container-button.png&quot; alt=&quot;&quot; /&gt; and then select your own template:&lt;/p&gt;
+&lt;p&gt;Click on &lt;img src=&quot;../assets/img/articles/unraid-add-container-button.png&quot; alt=&quot;add container&quot; /&gt; and then select your own template:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-select-custom-template.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-select-custom-template.png&quot; alt=&quot;screenshot of add container&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And then all the configuration you defined in the xml file will be rendered as follow:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-display-custom-template.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/unraid-display-custom-template.png&quot; alt=&quot;screenshot of example of a custom template&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As you can see we can define custom values, optional values, masked values for password etc. it is really powerful thank’s Unraid Devs!&lt;/p&gt;
 
@@ -397,7 +397,7 @@ To do so you simply go to your unraid instance and select the &lt;code class=&qu
         <title>Falmeshot - Do screenshots and annotate them in seconds !</title>
         <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
-&lt;p&gt;As developer we have to explain stuff. This is our DNA, explain how the program works, explain where the user has to click and so on.&lt;/p&gt;
+&lt;p&gt;As developer, we have to explain stuff. This is our DNA, explain how the program works, explain where the user has to click and so on.&lt;/p&gt;
 
 &lt;p&gt;I falled in love with this great tool called &lt;strong&gt;Flameshot&lt;/strong&gt; which works on Linux Mac and Windows and is totally free.&lt;/p&gt;
 
@@ -405,7 +405,7 @@ To do so you simply go to your unraid instance and select the &lt;code class=&qu
 
 &lt;p&gt;Just push your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prt scr&lt;/code&gt; shortcut and then you are in!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/flameshot-demo.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/flameshot-demo.jpg&quot; alt=&quot;Demo using flameshot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As you can see there are plenty of usefull tools which appears, first you select the area which interest you (crop).&lt;/p&gt;
 
@@ -518,7 +518,7 @@ It helps to create an instance of a class, but in a more assisted way than a bui
 
 &lt;p&gt;Here is an example using traditional builder for an email:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/builder-pattern-weakness.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/builder-pattern-weakness.png&quot; alt=&quot;builder pattern weakness&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As we can see in point &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(1)&lt;/code&gt; the autocomplete show us methods: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withContent()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withFrom()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withTitle()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withTo()&lt;/code&gt; methods and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.build()&lt;/code&gt; right after having invoked &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.builder()&lt;/code&gt;.&lt;/p&gt;
 
@@ -544,7 +544,7 @@ It helps to create an instance of a class, but in a more assisted way than a bui
 
 &lt;p&gt;Step builder pattern address this issue:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/step-builder-autocomplete-demo.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../assets/img/articles/step-builder-autocomplete-demo.gif&quot; alt=&quot;step builder autocomplete demo&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Using step builder pattern you no longer can forget to define &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;from&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;title&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;content&lt;/code&gt; properties when creating an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Email&lt;/code&gt; instance.
 Furthermore the order is controlled. As you can see we can not call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.setContent()&lt;/code&gt; method in the beginning. There is a sequence which define in which order each method can be called.&lt;/p&gt;
