@@ -4,7 +4,7 @@ title:  "linux reset audio volume with command line"
 author: sbeex
 categories: [ i3 ]
 tags: [ linux, i3 ]
-cover: assets/img/articles/no-cover.png
+cover: assets/img/articles/reset-audio-volume-linux.png
 subtheme: sub-theme-git
 published: true
 ---
