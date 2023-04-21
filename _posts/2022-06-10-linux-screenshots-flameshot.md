@@ -9,7 +9,7 @@ subtheme: sub-theme-git
 ---
 ## Introduction
 
-As developer we have to explain stuff. This is our DNA, explain how the program works, explain where the user has to click and so on.
+As developer, we have to explain stuff. This is our DNA, explain how the program works, explain where the user has to click and so on.
 
 I falled in love with this great tool called **Flameshot** which works on Linux Mac and Windows and is totally free.
 
@@ -18,7 +18,7 @@ I falled in love with this great tool called **Flameshot** which works on Linux 
 Just push your `prt scr` shortcut and then you are in!
 
 
-![](../assets/img/articles/flameshot-demo.jpg)
+![Demo using flameshot](../assets/img/articles/flameshot-demo.jpg)
 
 As you can see there are plenty of usefull tools which appears, first you select the area which interest you (crop).
 

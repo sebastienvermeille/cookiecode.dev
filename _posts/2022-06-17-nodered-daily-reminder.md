@@ -39,11 +39,11 @@ In order to achieve that we will need two nodered extensions:
 
 Basically here we will have the following flow:
 
-![](../assets/img/articles/nodered-predaily-meeting-reminder.png)
+![screenshot of node-red flow](../assets/img/articles/nodered-predaily-meeting-reminder.png)
 
 First we trigger this only at `08:58` during working days:
 
-![](../assets/img/articles/noderaid-predaily-scheduler.png)
+![edit inject node screenshot](../assets/img/articles/noderaid-predaily-scheduler.png)
 
 > warning "Warning"
 > Node red will use the timezone defined in your instance. (If you run under docker you can define it via the env `TZ=Europe/Paris` or something else based on your region.)

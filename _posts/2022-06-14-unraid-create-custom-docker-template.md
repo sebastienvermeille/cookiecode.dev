@@ -119,25 +119,25 @@ For more details you can read this page of [unraid's wiki](https://wiki.unraid.n
 3) Then we have to tell unraid to fetch our templates
 To do so you simply go to your unraid instance and select the `Docker` tab.
 
-![](../assets/img/articles/unraid-select-docker.png)
+![unraid docker menu](../assets/img/articles/unraid-select-docker.png)
 
 
 Then on the bottom of the page add the url of the git repository you have created at step 1):
 
-![](../assets/img/articles/unraid-custom-template-repository.png)
+![unraid template repositories](../assets/img/articles/unraid-custom-template-repository.png)
 
 And click `SAVE`.
 
 
 4) Now you can create a docker container with your template:
 
-Click on ![](../assets/img/articles/unraid-add-container-button.png) and then select your own template:
+Click on ![add container](../assets/img/articles/unraid-add-container-button.png) and then select your own template:
 
-![](../assets/img/articles/unraid-select-custom-template.png)
+![screenshot of add container](../assets/img/articles/unraid-select-custom-template.png)
 
 And then all the configuration you defined in the xml file will be rendered as follow:
 
-![](../assets/img/articles/unraid-display-custom-template.png)
+![screenshot of example of a custom template](../assets/img/articles/unraid-display-custom-template.png)
 
 As you can see we can define custom values, optional values, masked values for password etc. it is really powerful thank's Unraid Devs!
 

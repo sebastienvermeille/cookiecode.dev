@@ -13,13 +13,13 @@ Many exists but rarely for free.
 
 I share with you one that I particularly like to use for my personal home automation notifications:
 
-![](../assets/img/articles/ttsmp3.png)
+![ttsmp3 logo](../assets/img/articles/ttsmp3.png)
 
 It is totally free for a normal usage (Maximum 3K characters a day).
 
 I give you here an example so you can see how easy it is:
 
-![](../assets/img/articles/ttsmp3-example.png)
+![screenshot of ttsmp3.com website](../assets/img/articles/ttsmp3-example.png)
 
 # Conclusion
 
