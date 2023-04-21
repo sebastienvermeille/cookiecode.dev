@@ -22,7 +22,7 @@ Each steps declare the next step so that the developer can not do any mistake or
 
 Here is an example using traditional builder for an email:
 
-![](../assets/img/articles/builder-pattern-weakness.png)
+![builder pattern weakness](../assets/img/articles/builder-pattern-weakness.png)
 
 As we can see in point `(1)` the autocomplete show us methods: `.withContent()`, `.withFrom()`, `.withTitle()`, `.withTo()` methods and `.build()` right after having invoked `.builder()`.
 
@@ -43,7 +43,7 @@ Wouldn't it be better if we could enforce a bit the autocomplete to provide only
 
 Step builder pattern address this issue:
 
-![](../assets/img/articles/step-builder-autocomplete-demo.gif)
+![step builder autocomplete demo](../assets/img/articles/step-builder-autocomplete-demo.gif)
 
 Using step builder pattern you no longer can forget to define `from`, `to`, `title`, `content` properties when creating an `Email` instance.
 Furthermore the order is controlled. As you can see we can not call `.setContent()` method in the beginning. There is a sequence which define in which order each method can be called.
