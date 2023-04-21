@@ -51,7 +51,7 @@
             {% endif %}
         {% endfor %}
         <section class="tags-card">
-            <div class="links" rel="links">Tags</div>
+            <div class="links" rel="links"><a href="{{ tags.html | prepend: site.baseurl }}">Tags</a></div>
             {% assign pnum = 0 %}
             {% for i in (1..max_tag_count) reversed %}
                 {% for tag in site.tags %}

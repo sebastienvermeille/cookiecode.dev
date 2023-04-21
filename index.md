@@ -29,3 +29,6 @@ As developer, I used to consume open source software (in professional life but a
 Since a few years now, I also try to contribute to the open source software community. I am surely not maintainer of huge projects such as Linux Kernel but still I try to share what I can with others at my humble level also via this blog :)
 
 If you are interested in my open sources contributions you can have a look at my open source projects or my contributions on Github directly.
+
+# Resume
+<a href="/cv">Curriculum Vitae (Resume)</a>
