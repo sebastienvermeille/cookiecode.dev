@@ -1,6 +1,12 @@
 [
   
     {
+      "title"    : "linux reset audio volume with command line",
+      "tags"     : "linux i3",
+      "url"      : "/i3/linux-reset-audio-volume-with-command-line.html"
+    } ,
+  
+    {
       "title"    : "[Cirrus CI] Using cache and fingerprint",
       "tags"     : "ci cirrus-ci cirrus",
       "url"      : "/ci/cd/cirrus-ci-using-cache-and-fingerprint.html"

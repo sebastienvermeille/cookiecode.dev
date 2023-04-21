@@ -5,9 +5,33 @@
     <description>In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.</description>
     <link>https://cookiecode.dev//</link>
     <atom:link href="https://cookiecode.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 17 Apr 2023 16:20:01 +0000</pubDate>
-    <lastBuildDate>Mon, 17 Apr 2023 16:20:01 +0000</lastBuildDate>
+    <pubDate>Fri, 21 Apr 2023 05:52:15 +0000</pubDate>
+    <lastBuildDate>Fri, 21 Apr 2023 05:52:15 +0000</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>linux reset audio volume with command line</title>
+        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Sometimes the sound is boosted too much and saturated.&lt;/p&gt;
+
+&lt;h2 id=&quot;how&quot;&gt;How&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pactl list short synks&lt;/code&gt; Will list your audio outputs and prefix them with a number that you can then use here:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pactl set-sink-volume &amp;lt;number&amp;gt; 100%&lt;/code&gt; Will set the volume to 100% for output &lt;number&gt;&lt;/number&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 19 Apr 2023 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/i3/linux-reset-audio-volume-with-command-line.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/i3/linux-reset-audio-volume-with-command-line.html</guid>
+        
+        <category>linux</category>
+        
+        <category>i3</category>
+        
+        
+        <category>i3</category>
+        
+      </item>
     
       <item>
         <title>[Cirrus CI] Using cache and fingerprint</title>
@@ -703,30 +727,6 @@ local.properties
         
         
         <category>tools</category>
-        
-      </item>
-    
-      <item>
-        <title>How to handle exceptions on @RestController with springboot webflux when the underservice return a Mono.error()</title>
-        <description>&lt;p&gt;I had issue to handle exceptions using webflux and found the solution in &lt;a href=&quot;https://youtu.be/Lc3dHbQ-CFo?t=380&quot;&gt;this video&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;https://youtu.be/Lc3dHbQ-CFo?t=380&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Sat, 24 Apr 2021 00:00:00 +0000</pubDate>
-        <link>https://cookiecode.dev/languages/java/spring-webflux-onErrorReturn-catch-exceptions.html</link>
-        <guid isPermaLink="true">https://cookiecode.dev/languages/java/spring-webflux-onErrorReturn-catch-exceptions.html</guid>
-        
-        <category>spring</category>
-        
-        <category>reactive</category>
-        
-        
-        <category>languages</category>
-        
-        <category>java</category>
         
       </item>
     
