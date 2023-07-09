@@ -5,9 +5,101 @@
     <description>In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.</description>
     <link>https://cookiecode.dev//</link>
     <atom:link href="https://cookiecode.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 21 Apr 2023 18:17:22 +0000</pubDate>
-    <lastBuildDate>Fri, 21 Apr 2023 18:17:22 +0000</lastBuildDate>
+    <pubDate>Sun, 09 Jul 2023 08:29:58 +0000</pubDate>
+    <lastBuildDate>Sun, 09 Jul 2023 08:29:58 +0000</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>Linux - Add windows 11 entry in Grub the secure way</title>
+        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;You have a linux machine runing grub ? you installed windows 11 but it is not displayed in the Grub menu at boot?&lt;/p&gt;
+
+&lt;p&gt;If you are like me in a situation where you have to systematically press F12 in the boot menu of the bios to select which “drive” you want to use to select your OS :) then this article is for you!&lt;/p&gt;
+
+&lt;h2 id=&quot;how&quot;&gt;How&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-boot-on-your-linux-installation-as-usual-start-a-terminal-and-run-sudo-os-prober-install-it-if-necessary&quot;&gt;1) Boot on your linux installation as usual, start a terminal and run: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo os-prober&lt;/code&gt; (Install it if necessary)&lt;/h3&gt;
+
+&lt;p&gt;The output will be something simiar to this:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;➜  ~ sudo os-prober
+/dev/nvme0n1p1@/efi/Microsoft/Boot/bootmgfw.efi:Windows Boot Manager:Windows:efi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;2-retrieve-the-uuid-of-the-efi-partition&quot;&gt;2) Retrieve the UUID of the EFI partition&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo blkid /dev/nvme0n1p1&lt;/code&gt; (Replace nvme0n1p1 with the correct partition you retrieved at step 1)&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo blkid /dev/nvme0n1p1
+/dev/nvme0n1p1: UUID=&quot;1212-1FF1&quot; BLOCK_SIZE=&quot;512&quot; TYPE=&quot;vfat&quot; PARTLABEL=&quot;EFI system partition&quot; PARTUUID=&quot;ffffff00-07ff-4bff-9bff-fcffffff13c3&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;UUID=”1212-1FF1”&lt;/p&gt;
+
+&lt;h3 id=&quot;3-customize-grub-the-correct-way&quot;&gt;3) Customize grub the correct way&lt;/h3&gt;
+
+&lt;p&gt;To customize grub the proper way we will simply declare custom configuration. That’s great because that’s exactly what &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/grub.d/40_custom&lt;/code&gt; is for :)&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo nano /etc/grub.d/40_custom&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;And then at the end of the file we will add the new entry:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;menuentry &apos;Windows 11&apos; {
+  search --fs-uuid --set=root &amp;lt;UUID&amp;gt;
+  chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Replace &lt;UUID&gt; with the value you retrieved at step 2.&lt;/UUID&gt;&lt;/p&gt;
+
+&lt;p&gt;Save the changes in the file&lt;/p&gt;
+
+&lt;h3 id=&quot;4-remove-write-permissions&quot;&gt;4) Remove write permissions&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo chmod o-w /etc/grub.d/40_custom&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;5-regenerate-grubcfg-including-your-overrided-changes&quot;&gt;5) Regenerate grub.cfg including your overrided changes&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo update-grub&lt;/code&gt;  if you have it on your distrib, otherwise the full command:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo grub-mkconfig -o /boot/grub/grub.cfg&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;6-optional-check-the-generated-file&quot;&gt;6) (Optional) Check the generated file&lt;/h3&gt;
+
+&lt;p&gt;you can see if your changes are now included if you run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo cat /boot/grub/grub.cfg | grep &quot;Windows 11&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;7-reboot&quot;&gt;7) Reboot&lt;/h3&gt;
+
+&lt;p&gt;reboot and see if it work :)&lt;/p&gt;
+
+&lt;h2 id=&quot;why-doing-it-this-way-&quot;&gt;Why doing it this way ?&lt;/h2&gt;
+&lt;p&gt;Some answers propose to enable os-prober (disabled by default). It would automatically add entries for detected systems (convenient). But disabled for security reasons by default (up to you) https://forum.manjaro.org/t/grub2-secure-boot-bypass-and-other-issues-update-highly-recommended/57280&lt;/p&gt;
+
+&lt;p&gt;Some answers propose to edit directly the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/boot/grub/grub.cfg&lt;/code&gt; file, but take care, this file is generated by commands by the system. So basically if you go put your fingers there… you take the risk to have your custom changes being overrided.&lt;/p&gt;
+
+&lt;p&gt;There is a simple way to customize grub via custom file extra for that purpose let’s use it :) &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/grub.d/40_custom&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://bbs.archlinux.org/viewtopic.php?pid=2006988#p2006988&lt;/li&gt;
+  &lt;li&gt;https://askubuntu.com/a/1425651&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 09 Jul 2023 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/linux/linux-add-windows-11-entry-in-grub-the-secure-way.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/linux/linux-add-windows-11-entry-in-grub-the-secure-way.html</guid>
+        
+        <category>linux</category>
+        
+        <category>grub</category>
+        
+        <category>windows</category>
+        
+        
+        <category>linux</category>
+        
+      </item>
     
       <item>
         <title>linux reset audio volume with command line</title>
@@ -660,73 +752,6 @@ I like the fluent coding style which render the code much more intuitive. This i
         
         
         <category>design pattern</category>
-        
-      </item>
-    
-      <item>
-        <title>Gitignore.io - Generate your gitignore files in seconds!</title>
-        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;Writing a good and efficient &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; file might be difficult if we consider everything:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Each IDE / Operating System add its kind of files and pollute your git repository with things which should not be there. (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Thumbs.db&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.DS_Store&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.project&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.idea/&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;...&lt;/code&gt;)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If you plan to share your git account with multiple developers, then many chances are that they will not be on the same OS, IDE than you causing some undesired files being pushed to your git repository.&lt;/p&gt;
-
-&lt;p&gt;In order to simplify the life of each contributor of your project (and even yours) having a good .gitignore is important.&lt;/p&gt;
-
-&lt;p&gt;To avoid that I personally use a free online tool called &lt;a href=&quot;http://gitignore.io&quot;&gt;gitignore.io&lt;/a&gt; which generates a .gitignore file based on some tags that I provide. This is very handy and incredibly fast!&lt;/p&gt;
-
-&lt;h2 id=&quot;how-it-works&quot;&gt;How it works&lt;/h2&gt;
-
-&lt;p&gt;1) Choose some predefined tags
-&lt;img src=&quot;../assets/img/articles/gitignoreio-demo.gif&quot; alt=&quot;Demo: how to use gitignoreio&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;2) Click &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Create&lt;/code&gt;, and then you will have a generated content to copy and paste into your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; file similar to this:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# .gitignore&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Created by https://www.toptal.com/developers/gitignore/api/java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;### Eclipse ### :fire:&lt;/span&gt;
-.metadata
-bin/
-tmp/
-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.tmp
-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.bak
-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.swp
-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;~.nib
-local.properties
-.settings/
-.loadpath
-.recommenders
-
-&lt;span class=&quot;c&quot;&gt;# External tool builders&lt;/span&gt;
-.externalToolBuilders/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;3) Last but not least you can at any time add new tags by using the edit link provided.&lt;/p&gt;
-
-&lt;p&gt;In this example: &lt;a href=&quot;https://www.toptal.com/developers/gitignore?templates=java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode&quot;&gt;https://www.toptal.com/developers/gitignore?templates=java,maven,windows,macos,jetbrains+all,eclipse,netbeans,visualstudiocode&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;This tool is really handy to me, I hope it will be also for you&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://gitignore.io&quot;&gt;gitignore.io&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Wed, 08 Jun 2022 00:00:00 +0000</pubDate>
-        <link>https://cookiecode.dev/tools/git-ignore-io.html</link>
-        <guid isPermaLink="true">https://cookiecode.dev/tools/git-ignore-io.html</guid>
-        
-        <category>git</category>
-        
-        
-        <category>tools</category>
         
       </item>
     

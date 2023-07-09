@@ -1,6 +1,12 @@
 [
   
     {
+      "title"    : "Linux - Add windows 11 entry in Grub the secure way",
+      "tags"     : "linux grub windows",
+      "url"      : "/linux/linux-add-windows-11-entry-in-grub-the-secure-way.html"
+    } ,
+  
+    {
       "title"    : "linux reset audio volume with command line",
       "tags"     : "linux i3",
       "url"      : "/i3/linux-reset-audio-volume-with-command-line.html"

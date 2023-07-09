@@ -5,27 +5,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>linux reset audio volume with command line - CookieCode</title>
+    <title>Linux - Add windows 11 entry in Grub the secure way - CookieCode</title>
     <meta name="author"  content="svermeille">
-    <meta name="description" content="linux reset audio volume with command line">
-    <meta name="keywords"  content="linux, i3">
+    <meta name="description" content="Linux - Add windows 11 entry in Grub the secure way">
+    <meta name="keywords"  content="linux, grub, windows">
     <!-- Open Graph -->
-    <meta property="og:title" content="linux reset audio volume with command line - CookieCode">
+    <meta property="og:title" content="Linux - Add windows 11 entry in Grub the secure way - CookieCode">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://cookiecode.dev/i3/linux-reset-audio-volume-with-command-line.html">
+    <meta property="og:url" content="https://cookiecode.dev/linux/linux-add-windows-11-entry-in-grub-the-secure-way.html">
     <meta property="og:baseurl" content="">
     <meta property="og:description" content="In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.">
     <meta property="og:site_name" content="CookieCode">
     <meta property="og:gray" content="false">
     
-    <meta property="og:previous_url" content="/linux/linux-add-windows-11-entry-in-grub-the-secure-way.html">
     
-    
-    <meta property="og:next_url" content="/ci/cd/cirrus-ci-using-cache-and-fingerprint.html">
+    <meta property="og:next_url" content="/i3/linux-reset-audio-volume-with-command-line.html">
     
     <meta property="post-date-format" content="0">
     
-    <meta property="post-date" content="2023-04-19 00:00:00 +0000" />
+    <meta property="post-date" content="2023-07-09 00:00:00 +0000" />
     
     
     
@@ -135,11 +133,13 @@
             
               <a href="/tags.html#linux" class="post-tag">linux</a>
             
-              <a href="/tags.html#i3" class="post-tag">i3</a>
+              <a href="/tags.html#grub" class="post-tag">grub</a>
+            
+              <a href="/tags.html#windows" class="post-tag">windows</a>
             
           
         </div>
-        <h1>linux reset audio volume with command line</h1>
+        <h1>Linux - Add windows 11 entry in Grub the secure way</h1>
         <div class="post-meta">
           <span class="post-meta-item">
             <svg class="icon" aria-hidden="true">
@@ -147,13 +147,13 @@
             </svg>
             sbeex
           </span>
-          <time class="post-meta-item" datetime="23-04-19">
+          <time class="post-meta-item" datetime="23-07-09">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-calendar"></use>
             </svg>
             <span class="create-at"></span>
           </time>
-          <time class="post-meta-item" datetime="23-04-19">
+          <time class="post-meta-item" datetime="23-07-09">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-update"></use>
             </svg>
@@ -164,13 +164,13 @@
               <svg class="icon words" aria-hidden="true">
                 <use xlink:href="#icon-words"></use>
               </svg>
-              There are 219 words totally 
+              There are 2219 words totally 
             </span>
             <span class="post-meta-item">
               <svg class="icon time" aria-hidden="true">
                 <use xlink:href="#icon-time"></use>
               </svg>
-              It may needs 1 minutes
+              It may needs 7 minutes
             </span>
             
               <span class="post-meta-item">
@@ -186,7 +186,7 @@
       </div>
       
       <div class="filter"></div>
-        <div class="post-cover" style="background: url('/assets/img/articles/reset-audio-volume-linux.png') center no-repeat; background-size: cover;"></div>
+        <div class="post-cover" style="background: url('/assets/img/articles/no-cover.png') center no-repeat; background-size: cover;"></div>
       
     </header>
     <div class="post-content visible">
@@ -197,25 +197,91 @@
         <div class="contents">
           <article class="markdown-body">
             <h2 id="introduction">Introduction</h2>
-<p>Sometimes the sound is boosted too much and saturated.</p>
+
+<p>You have a linux machine runing grub ? you installed windows 11 but it is not displayed in the Grub menu at boot?</p>
+
+<p>If you are like me in a situation where you have to systematically press F12 in the boot menu of the bios to select which “drive” you want to use to select your OS :) then this article is for you!</p>
 
 <h2 id="how">How</h2>
-<p><code class="language-plaintext highlighter-rouge">pactl list short synks</code> Will list your audio outputs and prefix them with a number that you can then use here:</p>
 
-<p><code class="language-plaintext highlighter-rouge">pactl set-sink-volume &lt;number&gt; 100%</code> Will set the volume to 100% for output <number></number></p>
+<h3 id="1-boot-on-your-linux-installation-as-usual-start-a-terminal-and-run-sudo-os-prober-install-it-if-necessary">1) Boot on your linux installation as usual, start a terminal and run: <code class="language-plaintext highlighter-rouge">sudo os-prober</code> (Install it if necessary)</h3>
 
+<p>The output will be something simiar to this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜  ~ sudo os-prober
+/dev/nvme0n1p1@/efi/Microsoft/Boot/bootmgfw.efi:Windows Boot Manager:Windows:efi
+</code></pre></div></div>
+
+<h3 id="2-retrieve-the-uuid-of-the-efi-partition">2) Retrieve the UUID of the EFI partition</h3>
+
+<p><code class="language-plaintext highlighter-rouge">sudo blkid /dev/nvme0n1p1</code> (Replace nvme0n1p1 with the correct partition you retrieved at step 1)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo blkid /dev/nvme0n1p1
+/dev/nvme0n1p1: UUID="1212-1FF1" BLOCK_SIZE="512" TYPE="vfat" PARTLABEL="EFI system partition" PARTUUID="ffffff00-07ff-4bff-9bff-fcffffff13c3"
+</code></pre></div></div>
+
+<p>UUID=”1212-1FF1”</p>
+
+<h3 id="3-customize-grub-the-correct-way">3) Customize grub the correct way</h3>
+
+<p>To customize grub the proper way we will simply declare custom configuration. That’s great because that’s exactly what <code class="language-plaintext highlighter-rouge">/etc/grub.d/40_custom</code> is for :)</p>
+
+<p><code class="language-plaintext highlighter-rouge">sudo nano /etc/grub.d/40_custom</code></p>
+
+<p>And then at the end of the file we will add the new entry:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>menuentry 'Windows 11' {
+  search --fs-uuid --set=root &lt;UUID&gt;
+  chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
+}
+</code></pre></div></div>
+
+<p>Replace <uuid> with the value you retrieved at step 2.</uuid></p>
+
+<p>Save the changes in the file</p>
+
+<h3 id="4-remove-write-permissions">4) Remove write permissions</h3>
+
+<p><code class="language-plaintext highlighter-rouge">sudo chmod o-w /etc/grub.d/40_custom</code></p>
+
+<h3 id="5-regenerate-grubcfg-including-your-overrided-changes">5) Regenerate grub.cfg including your overrided changes</h3>
+
+<p><code class="language-plaintext highlighter-rouge">sudo update-grub</code>  if you have it on your distrib, otherwise the full command:</p>
+
+<p><code class="language-plaintext highlighter-rouge">sudo grub-mkconfig -o /boot/grub/grub.cfg</code></p>
+
+<h3 id="6-optional-check-the-generated-file">6) (Optional) Check the generated file</h3>
+
+<p>you can see if your changes are now included if you run <code class="language-plaintext highlighter-rouge">sudo cat /boot/grub/grub.cfg | grep "Windows 11"</code></p>
+
+<h3 id="7-reboot">7) Reboot</h3>
+
+<p>reboot and see if it work :)</p>
+
+<h2 id="why-doing-it-this-way-">Why doing it this way ?</h2>
+<p>Some answers propose to enable os-prober (disabled by default). It would automatically add entries for detected systems (convenient). But disabled for security reasons by default (up to you) https://forum.manjaro.org/t/grub2-secure-boot-bypass-and-other-issues-update-highly-recommended/57280</p>
+
+<p>Some answers propose to edit directly the <code class="language-plaintext highlighter-rouge">/boot/grub/grub.cfg</code> file, but take care, this file is generated by commands by the system. So basically if you go put your fingers there… you take the risk to have your custom changes being overrided.</p>
+
+<p>There is a simple way to customize grub via custom file extra for that purpose let’s use it :) <code class="language-plaintext highlighter-rouge">/etc/grub.d/40_custom</code></p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li>https://bbs.archlinux.org/viewtopic.php?pid=2006988#p2006988</li>
+  <li>https://askubuntu.com/a/1425651</li>
+</ul>
 
             <div class="post-copyright">
               <p><span>Author：</span>svermeille for <a href="https://cookiecode.dev">CookieCode</a></p>
               <p>（<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" class="extlinks">CC BY-NC-SA 4.0</a> license）</p>
-              <p><span>title：</span>《 linux reset audio volume with command line 》</p>
-              <p><span>permalink：</span><a href="https://cookiecode.dev/i3/linux-reset-audio-volume-with-command-line.html">https://cookiecode.dev/i3/linux-reset-audio-volume-with-command-line.html</a></p>
+              <p><span>title：</span>《 Linux - Add windows 11 entry in Grub the secure way 》</p>
+              <p><span>permalink：</span><a href="https://cookiecode.dev/linux/linux-add-windows-11-entry-in-grub-the-secure-way.html">https://cookiecode.dev/linux/linux-add-windows-11-entry-in-grub-the-secure-way.html</a></p>
             </div>
           </article>
         </div>   
         <div class="table-of-contents">
           <h2>Contents</h2>
-          <ul><li><a href="#introduction">Introduction</a></li><li><a href="#how">How</a></li></ul>
+          <ul><li><a href="#introduction">Introduction</a></li><li><a href="#how">How</a><ul><li><a href="#1-boot-on-your-linux-installation-as-usual-start-a-terminal-and-run-sudo-os-prober-install-it-if-necessary">1) Boot on your linux installation as usual, start a terminal and run: <code class="language-plaintext highlighter-rouge">sudo os-prober</code> (Install it if necessary)</a></li><li><a href="#2-retrieve-the-uuid-of-the-efi-partition">2) Retrieve the UUID of the EFI partition</a></li><li><a href="#3-customize-grub-the-correct-way">3) Customize grub the correct way</a></li><li><a href="#4-remove-write-permissions">4) Remove write permissions</a></li><li><a href="#5-regenerate-grubcfg-including-your-overrided-changes">5) Regenerate grub.cfg including your overrided changes</a></li><li><a href="#6-optional-check-the-generated-file">6) (Optional) Check the generated file</a></li><li><a href="#7-reboot">7) Reboot</a></li></ul></li><li><a href="#why-doing-it-this-way-">Why doing it this way ?</a></li><li><a href="#references">References</a></li></ul>
         </div>
       </div>
       
@@ -248,29 +314,17 @@
       </section>
       <section class="post-footer-item read-next">
         
-        <div class="read-next-item">
-          <a href="/linux/linux-add-windows-11-entry-in-grub-the-secure-way.html" class="read-next-link" aria-label="Linux - Add windows 11 entry in Grub the secure way"></a>
-          <section>
-            <span>Linux - Add windows 11 entry in Grub the secure way</span>
-            <p>Introduction</p>
-          </section>
-          
-          <div class="filter"></div>
-          <img src="/assets/img/articles/no-cover.png" alt="Next article cover">
-          
-      </div>
-        
 
         
         <div class="read-next-item">
-          <a href="/ci/cd/cirrus-ci-using-cache-and-fingerprint.html" class="read-next-link" aria-label="[Cirrus CI] Using cache and fingerprint"></a>
+          <a href="/i3/linux-reset-audio-volume-with-command-line.html" class="read-next-link" aria-label="linux reset audio volume with command line"></a>
             <section>
-              <span>[Cirrus CI] Using cache and fingerprint</span>
-              <p>IntroductionImagine: You want to create two tasks in your...</p>
+              <span>linux reset audio volume with command line</span>
+              <p>IntroductionSometimes the sound is boosted too much and s...</p>
             </section>
             
             <div class="filter"></div>
-            <img src="/assets/img/articles/cirrus-ci-icon.svg" alt="Previous article cover">
+            <img src="/assets/img/articles/reset-audio-volume-linux.png" alt="Previous article cover">
             
         </div>
         
@@ -483,7 +537,7 @@
 
           $(".post time span.create-at").html(local_post_date["date"]);
 
-          fetch("https://api.github.com/repos/svermeille/cookiecode.dev/commits?path=_posts/2023-04-19-linux-reset-audio-volume-with-command-line.md")
+          fetch("https://api.github.com/repos/svermeille/cookiecode.dev/commits?path=_posts/2023-07-09-linux-add-windows-11-entry-in-grub-the-secure-way.md")
           .then((response) => {
             return response.json();
           })
