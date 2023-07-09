@@ -63,11 +63,11 @@ Save the changes in the file
 
 `sudo update-grub`  if you have it on your distrib, otherwise the full command:
 
-`sudo grub-mkconfig -o /boot/grub.cfg`
+`sudo grub-mkconfig -o /boot/grub/grub.cfg`
 
 ### 6) (Optional) Check the generated file
 
-you can see if your changes are now included if you run `sudo cat /boot/grub.cfg | grep "Windows 11"`
+you can see if your changes are now included if you run `sudo cat /boot/grub/grub.cfg | grep "Windows 11"`
 
 ### 7) Reboot
 
