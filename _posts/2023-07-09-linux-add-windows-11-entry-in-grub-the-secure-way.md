@@ -16,7 +16,7 @@ If you are like me in a situation where you have to systematically press F12 in 
 
 ## How
 
-1) Boot on your linux installation as usual, start a terminal and run: `sudo os-prober` (Install it if necessary)
+### 1) Boot on your linux installation as usual, start a terminal and run: `sudo os-prober` (Install it if necessary)
 
 The output will be something simiar to this:
 
@@ -25,9 +25,18 @@ The output will be something simiar to this:
 /dev/nvme0n1p1@/efi/Microsoft/Boot/bootmgfw.efi:Windows Boot Manager:Windows:efi
 ```
 
-Perfect keep it aside for next step.
+### 2) Retrieve the UUID of the EFI partition
 
-2) Customize grub the correct way
+`sudo blkid /dev/nvme0n1p1` (Replace nvme0n1p1 with the correct partition you retrieved at step 1)
+
+```
+sudo blkid /dev/nvme0n1p1
+/dev/nvme0n1p1: UUID="1212-1FF1" BLOCK_SIZE="512" TYPE="vfat" PARTLABEL="EFI system partition" PARTUUID="ffffff00-07ff-4bff-9bff-fcffffff13c3"
+```
+
+UUID="1212-1FF1"
+
+### 3) Customize grub the correct way
 
 To customize grub the proper way we will simply declare custom configuration. That's great because that's exactly what `/etc/grub.d/40_custom` is for :)
 
@@ -37,17 +46,32 @@ And then at the end of the file we will add the new entry:
 
 ```
 menuentry 'Windows 11' {
-  search --fs-uuid --set=root /dev/nvme0n1p1
-  chainloader /efi/Microsoft/Boot/bootmgfw.efi
+  search --fs-uuid --set=root <UUID>
+  chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
 }
 ```
 
-Some explainations:
+Replace <UUID> with the value you retrieved at step 2.
 
-* menuentry -> the label you want to give to the menu entry
-* search ... -> here you should pay attention to provide the right uuid (based on the first step result this is what is before `@/efi/Microsoft/Boot/bootmgfw.efi:Windows Boot Manager:Windows:efi`
-* chainloader -> here you provide the path after `/dev/nvme0n1p1@`
+Save the changes in the file
 
+### 4) Remove write permissions
+
+`sudo chmod o-w /etc/grub.d/40_custom`
+
+### 5) Regenerate grub.cfg including your overrided changes
+
+`sudo update-grub`  if you have it on your distrib, otherwise the full command:
+
+`sudo grub-mkconfig -o /boot/grub.cfg`
+
+### 6) (Optional) Check the generated file
+
+you can see if your changes are now included if you run `sudo cat /boot/grub.cfg | grep "Windows 11"`
+
+### 7) Reboot
+
+reboot and see if it work :) 
 
 ## Why doing it this way ?
 Some answers propose to enable os-prober (disabled by default). It would automatically add entries for detected systems (convenient). But disabled for security reasons by default (up to you) https://forum.manjaro.org/t/grub2-secure-boot-bypass-and-other-issues-update-highly-recommended/57280
@@ -60,4 +84,5 @@ There is a simple way to customize grub via custom file extra for that purpose l
 
 
 ## References
-https://bbs.archlinux.org/viewtopic.php?pid=2006988#p2006988
+* https://bbs.archlinux.org/viewtopic.php?pid=2006988#p2006988
+* https://askubuntu.com/a/1425651
