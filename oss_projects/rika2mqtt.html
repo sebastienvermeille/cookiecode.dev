@@ -5,21 +5,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stepbuilder Codegen Plugin - CookieCode</title>
+    <title>RIKA2MQTT - CookieCode</title>
     <meta name="author"  content="svermeille">
-    <meta name="description" content="Stepbuilder Codegen Plugin">
-    <meta name="keywords"  content="jetbrains, intellij, java">
+    <meta name="description" content="RIKA2MQTT">
+    <meta name="keywords"  content="rika, mqtt, java, docker, unraid">
     <!-- Open Graph -->
-    <meta property="og:title" content="Stepbuilder Codegen Plugin - CookieCode">
+    <meta property="og:title" content="RIKA2MQTT - CookieCode">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://cookiecode.dev/oss_projects/stepbuilder-codegen-plugin">
+    <meta property="og:url" content="https://cookiecode.dev/oss_projects/rika2mqtt">
     <meta property="og:baseurl" content="">
     <meta property="og:description" content="In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.">
     <meta property="og:site_name" content="CookieCode">
     <meta property="og:gray" content="false">
     
+    <meta property="og:previous_url" content="/oss_projects/stepbuilder-codegen-plugin">
     
-    <meta property="og:next_url" content="/oss_projects/rika2mqtt">
+    
+    <meta property="og:next_url" content="/oss_projects/another-protobuf-maven-plugin">
     
     <meta property="post-date-format" content="0">
     
@@ -132,15 +134,19 @@
                 <div class="post-tags">
                     
                     
-                    <a href="/tags.html#jetbrains" class="post-tag">jetbrains</a>
+                    <a href="/tags.html#rika" class="post-tag">rika</a>
                     
-                    <a href="/tags.html#intellij" class="post-tag">intellij</a>
+                    <a href="/tags.html#mqtt" class="post-tag">mqtt</a>
                     
                     <a href="/tags.html#java" class="post-tag">java</a>
                     
+                    <a href="/tags.html#docker" class="post-tag">docker</a>
+                    
+                    <a href="/tags.html#unraid" class="post-tag">unraid</a>
+                    
                     
                 </div>
-                <h1>Stepbuilder Codegen Plugin</h1>
+                <h1>RIKA2MQTT</h1>
                 <div class="post-meta">
           <span class="post-meta-item">
             <svg class="icon" aria-hidden="true">
@@ -165,13 +171,13 @@
               <svg class="icon words" aria-hidden="true">
                 <use xlink:href="#icon-words"></use>
               </svg>
-              There are 216 words totally
+              There are 408 words totally
             </span>
                     <span class="post-meta-item">
               <svg class="icon time" aria-hidden="true">
                 <use xlink:href="#icon-time"></use>
               </svg>
-              It may needs 1 minutes
+              It may needs 2 minutes
             </span>
                     
                     <span class="post-meta-item">
@@ -194,22 +200,19 @@
             <div class="container">
                 <div class="contents">
                     <article class="markdown-body">
-                        <p>The plugin is available on Jetbrains market store you can install it like any other plugins: <strong>File</strong> &gt; <strong>Settings…</strong> &gt; <strong>Plugins</strong>.</p>
+                        <p>RIKA2MQTT is a free and opensource bridge enabling end-users to connect their RIKA firenet stove to an MQTT server.</p>
 
-<p>I forked this project as the initial maintainer no longer upgraded it for new versions of intelliJ and then distilled the code a bit.</p>
+<p>It will publish regularly the status of your RIKA stove to MQTT, so you can display the status to your IoT platform or store some metrics such as in a Grafana Dashboard up to you!</p>
 
-<div id="downloadButton"><div>
-<div id="pluginCard"></div>
+<p>You can even send commands to your stove via MQTT, let’s drive your stove the way you want :)</p>
 
-<script src="https://plugins.jetbrains.com/assets/scripts/mp-widget.js"></script>
-<script>
-MarketplaceWidget.setupMarketplaceWidget('card', 16792, "#pluginCard");
-</script>
-</div></div>
+<p>Available as a vanilla docker container or as an unRAID app.</p>
+
+<p>More here: https://rika2mqtt.cookiecode.dev</p>
 
                         <div class="post-copyright">
-                            <p><span>license：</span>Apache license 2.0</p>
-                            <p><span>source code：</span><a href="https://github.com/sebastienvermeille/intellij-stepbuilder-codegen-plugin" target="_blank">https://github.com/sebastienvermeille/intellij-stepbuilder-codegen-plugin</a></p>
+                            <p><span>license：</span>MIT</p>
+                            <p><span>source code：</span><a href="https://github.com/sebastienvermeille/rika2mqtt" target="_blank">https://github.com/sebastienvermeille/rika2mqtt</a></p>
                         </div>
                     </article>
                 </div>
@@ -248,13 +251,22 @@ MarketplaceWidget.setupMarketplaceWidget('card', 16792, "#pluginCard");
             </section>
             <section class="post-footer-item read-next">
                 
+                <div class="read-next-item">
+                    <a href="/oss_projects/stepbuilder-codegen-plugin" class="read-next-link" aria-label="Stepbuilder Codegen Plugin"></a>
+                    <section>
+                        <span>Stepbuilder Codegen Plugin</span>
+                        <p>The plugin is available on Jetbrains market store you can...</p>
+                    </section>
+                    
+                </div>
+                
 
                 
                 <div class="read-next-item">
-                    <a href="/oss_projects/rika2mqtt" class="read-next-link" aria-label="RIKA2MQTT"></a>
+                    <a href="/oss_projects/another-protobuf-maven-plugin" class="read-next-link" aria-label="Another protobuf maven plugin"></a>
                     <section>
-                        <span>RIKA2MQTT</span>
-                        <p>RIKA2MQTT is a free and opensource bridge enabling end-us...</p>
+                        <span>Another protobuf maven plugin</span>
+                        <p>A plugin that integrates protocol buffers compiler (proto...</p>
                     </section>
                     
                 </div>
@@ -468,7 +480,7 @@ MarketplaceWidget.setupMarketplaceWidget('card', 16792, "#pluginCard");
 
             $(".post time span.create-at").html(local_post_date["date"]);
 
-            fetch("https://api.github.com/repos/svermeille/cookiecode.dev/commits?path=_oss_projects/stepbuilder-codegen-plugin.md")
+            fetch("https://api.github.com/repos/svermeille/cookiecode.dev/commits?path=_oss_projects/rika2mqtt.md")
                 .then((response) => {
                     return response.json();
                 })
