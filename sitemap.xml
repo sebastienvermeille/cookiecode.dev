@@ -2,15 +2,15 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://cookiecode.dev/oss_projects/another-protobuf-maven-plugin</loc>
-<lastmod>2023-09-08T20:20:12+00:00</lastmod>
+<lastmod>2023-09-11T05:17:09+00:00</lastmod>
 </url>
 <url>
 <loc>https://cookiecode.dev/oss_projects/rika2mqtt</loc>
-<lastmod>2023-09-08T20:20:12+00:00</lastmod>
+<lastmod>2023-09-11T05:17:09+00:00</lastmod>
 </url>
 <url>
 <loc>https://cookiecode.dev/oss_projects/stepbuilder-codegen-plugin</loc>
-<lastmod>2023-09-08T20:20:12+00:00</lastmod>
+<lastmod>2023-09-11T05:17:09+00:00</lastmod>
 </url>
 <url>
 <loc>https://cookiecode.dev/languages/java/spring-webflux-onErrorReturn-catch-exceptions.html</loc>
@@ -59,6 +59,10 @@
 <url>
 <loc>https://cookiecode.dev/linux/linux-add-windows-11-entry-in-grub-the-secure-way.html</loc>
 <lastmod>2023-07-09T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>https://cookiecode.dev/tools/how-to-remove-the-fork-link-from-your-forked-github-projects.html</loc>
+<lastmod>2023-09-11T00:00:00+00:00</lastmod>
 </url>
 <url>
 <loc>https://cookiecode.dev/404</loc>

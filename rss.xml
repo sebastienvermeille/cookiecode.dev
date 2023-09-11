@@ -5,9 +5,47 @@
     <description>In this blog I share with you some answers to problems I faced during my life of developer. Also some nice tools I like to use, configurations and so on.</description>
     <link>https://cookiecode.dev//</link>
     <atom:link href="https://cookiecode.dev/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 08 Sep 2023 20:20:12 +0000</pubDate>
-    <lastBuildDate>Fri, 08 Sep 2023 20:20:12 +0000</lastBuildDate>
+    <pubDate>Mon, 11 Sep 2023 05:17:09 +0000</pubDate>
+    <lastBuildDate>Mon, 11 Sep 2023 05:17:09 +0000</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>[How to] Remove the fork link from a forked GitHub repository</title>
+        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Sometimes you fork a repository abandoned by its author and decide to give it a second life.&lt;/p&gt;
+
+&lt;p&gt;I did that for this repository https://github.com/sebastienvermeille/another-protobuf-maven-plugin.&lt;/p&gt;
+
+&lt;p&gt;The principle of fork is great in theory we can still merge our changes upstream. But in this case, it was just a pain:&lt;/p&gt;
+
+&lt;p&gt;Each time I opened a new PR for my own repo it opened a PR by default to the original forked repo (abandoned). I manually had to define another target each time (Imagine if contributors of the new repo get to this mistake too.. their PR will never appear to my project…)&lt;/p&gt;
+
+&lt;p&gt;GitHub does not provide at this time an out-of-the-box solution to specify some default target repositories at the moment. But there is a solution!&lt;/p&gt;
+
+&lt;h2 id=&quot;how&quot;&gt;How&lt;/h2&gt;
+
+&lt;p&gt;Use the GitHub chatbot-virtual-assistant at https://support.github.com/contact?tags=rr-forks&amp;amp;subject=Detach%20Fork&amp;amp;flow=detach_fork&lt;/p&gt;
+
+&lt;p&gt;This will ask you a few questions about how the fork should be replaced and create a github support ticket automatically.&lt;/p&gt;
+
+&lt;p&gt;After a couple of days, your repo will appear totally “unforked”. Thank’s to GitHub support!&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;p&gt;https://stackoverflow.com/a/16052845&lt;/p&gt;
+</description>
+        <pubDate>Mon, 11 Sep 2023 00:00:00 +0000</pubDate>
+        <link>https://cookiecode.dev/tools/how-to-remove-the-fork-link-from-your-forked-github-projects.html</link>
+        <guid isPermaLink="true">https://cookiecode.dev/tools/how-to-remove-the-fork-link-from-your-forked-github-projects.html</guid>
+        
+        <category>git</category>
+        
+        <category>github</category>
+        
+        
+        <category>tools</category>
+        
+      </item>
     
       <item>
         <title>Linux - Add windows 11 entry in Grub the secure way</title>
@@ -590,168 +628,6 @@ bindsym Print &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;flameshot gui
         
         
         <category>linux</category>
-        
-      </item>
-    
-      <item>
-        <title>Step Builder - Design pattern</title>
-        <description>&lt;p&gt;The &lt;strong&gt;StepBuilder&lt;/strong&gt; pattern is a derivative of &lt;a href=&quot;https://www.geeksforgeeks.org/builder-design-pattern/&quot;&gt;Builder pattern&lt;/a&gt;. 
-You may never have heard about this pattern as it is not common to find it mentioned in books/articles about design patterns.&lt;/p&gt;
-
-&lt;p&gt;This design pattern is part of the &lt;strong&gt;object creation&lt;/strong&gt; design pattern category.
-It helps to create an instance of a class, but in a more assisted way than a builder would do.&lt;/p&gt;
-
-&lt;h2 id=&quot;what-does-it-solve&quot;&gt;What does it solve&lt;/h2&gt;
-
-&lt;p&gt;As opposite to a general builder, the step builder assist the developer providing guidance during the object creation.&lt;/p&gt;
-
-&lt;p&gt;Each steps declare the next step so that the developer can not do any mistake or forget some mandatory steps.
-&lt;img src=&quot;../assets/img/articles/step-by-step.jpg&quot; alt=&quot;Going step by step&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Here is an example using traditional builder for an email:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/builder-pattern-weakness.png&quot; alt=&quot;builder pattern weakness&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As we can see in point &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(1)&lt;/code&gt; the autocomplete show us methods: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withContent()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withFrom()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withTitle()&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.withTo()&lt;/code&gt; methods and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.build()&lt;/code&gt; right after having invoked &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.builder()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Which means that we could simply write the following code and have something perfectly fine regarding compilation:&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Example: Builder pattern weakness - can build empty objects&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Does it make sense to have an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Email&lt;/code&gt; instance without any from, to properties set ? Not really…&lt;/p&gt;
-
-&lt;div class=&quot;premonition error&quot;&gt;
-  &lt;div class=&quot;fa pn-error&quot;&gt;&lt;/div&gt;
-  &lt;div class=&quot;content&quot;&gt;
-    &lt;p class=&quot;header&quot;&gt;PREMONITION ERROR: Invalid box type&lt;/p&gt;
-    You have specified an invalid box type &quot;question&quot;. You can customize your own box types in `_config.yml`.
-    See documentation for more help.
-  &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Wouldn’t it be better if we could enforce a bit the autocomplete to provide only invokable methods ?&lt;/p&gt;
-
-&lt;p&gt;Step builder pattern address this issue:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../assets/img/articles/step-builder-autocomplete-demo.gif&quot; alt=&quot;step builder autocomplete demo&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Using step builder pattern you no longer can forget to define &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;from&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;title&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;content&lt;/code&gt; properties when creating an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Email&lt;/code&gt; instance.
-Furthermore the order is controlled. As you can see we can not call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.setContent()&lt;/code&gt; method in the beginning. There is a sequence which define in which order each method can be called.&lt;/p&gt;
-
-&lt;h2 id=&quot;cool-but-how-does-it-works-&quot;&gt;Cool but how does it works ?&lt;/h2&gt;
-
-&lt;p&gt;The trick is to use a specific interface per step.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Email.java - StepBuilder implementation&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Getter&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@ToString&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IFrom&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (1) &amp;lt;-- here we expect IFrom &lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IFrom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (2) &amp;lt;-- IFrom declares ITo withFrom(String val)&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;ITo&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (3) &amp;lt;-- ITo -&amp;gt; ITitle -&amp;gt; IContent&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;ITitle&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITitle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (4) &amp;lt;-- ITitle -&amp;gt; IContent &lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;IContent&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IContent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (5) &amp;lt;-- IContent -&amp;gt; IBuild &lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;IBuild&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withContent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IBuild&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// (6) &amp;lt;-- IBuild -&amp;gt; Email instance! Woohoo :) &lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;Email&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IContent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IBuild&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IBuild&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withContent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;IContent&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withTitle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITitle&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ITo&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withFrom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Email&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This code can be written by hand but let’s be honest it would be much easier with a generator no ? Good news, a lot of generator exists for multiple IDE.&lt;/p&gt;
-
-&lt;p&gt;If you are using IntelliJ I suggest you this plugin that I maintain: &lt;a href=&quot;https://plugins.jetbrains.com/plugin/16792-stepbuilder-codegen&quot;&gt;stepbuilder-codegen&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;You can generate this code in a very few steps.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;As usual for design pattern you can find my example implementation &lt;a href=&quot;https://github.com/sebastienvermeille/java-design-patterns/tree/main/step-builder&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;This pattern provide compile time issue when an object is not correctly constructed which is definitely a plus. 
-I like the fluent coding style which render the code much more intuitive. This is like some UX design for developers using your API.&lt;/p&gt;
-
-&lt;p&gt;I see it as a quality when an API provide such way of using it. I was used to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Mockito&lt;/code&gt; (a testing library for Java) which provide some fluent API too.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://plugins.jetbrains.com/plugin/16792-stepbuilder-codegen&quot;&gt;IntelliJ plugin to generate StepBuilder&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.svlada.com/step-builder-pattern/&quot;&gt;Svlada article&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://martinfowler.com/bliki/FluentInterface.html&quot;&gt;Martin Fowler - FluentInterface&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Thu, 09 Jun 2022 00:00:00 +0000</pubDate>
-        <link>https://cookiecode.dev/design%20pattern/stepbuilder-pattern.html</link>
-        <guid isPermaLink="true">https://cookiecode.dev/design%20pattern/stepbuilder-pattern.html</guid>
-        
-        
-        <category>design pattern</category>
         
       </item>
     
