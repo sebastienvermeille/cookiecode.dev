@@ -3,10 +3,11 @@ $(document).ready(function(){
 
     var nav = $('.g-nav');
     var baseurl = $("meta[property='og:baseurl']").attr('content');
+    console.log(baseurl);
     var logo = $('.g-logo');
     var themeStyle = $('.g-banner').attr('data-theme');
     logo.css({
-        'background': 'url(' + baseurl + '/assets/icons/' + themeStyle + '.svg) no-repeat center',
+        'background': 'url(' + baseurl + '/assets/favicon.png) no-repeat center',
         'background-size': '100% 100%'
     });
 
@@ -82,7 +83,7 @@ $(document).ready(function(){
                     'box-shadow': '0 1px 12px rgba(0, 0, 0, .08)'
                 });
                 logo.css({
-                    'background': 'url(' + baseurl + '/assets/icons/' + themeStyle + '.svg) no-repeat center',
+                    'background': 'url(' + baseurl + '/assets/favicon.png) no-repeat center',
                     'background-size': '100% 100%'
                 });
                 navText.css('color', '#666');
@@ -96,7 +97,7 @@ $(document).ready(function(){
                     'box-shadow': 'none'
                 });
                 logo.css({
-                    'background': 'url(' + baseurl + '/assets/icons/' + themeStyle + '.svg) no-repeat center',
+                    'background': 'url(' + baseurl + '/assets/favicon.png) no-repeat center',
                     'background-size': '100% 100%'
                 });
                 navText.css('color', '#fff');

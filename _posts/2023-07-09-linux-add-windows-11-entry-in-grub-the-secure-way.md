@@ -4,7 +4,7 @@ title:  "Linux - Add windows 11 entry in Grub the secure way"
 author: sbeex
 categories: [ linux ]
 tags: [ linux, grub, windows ]
-cover: assets/img/articles/no-cover.png
+cover: assets/img/articles/windows11-with-grub.png
 subtheme: sub-theme-git
 published: true
 ---

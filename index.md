@@ -2,6 +2,7 @@
 layout: page
 home-title: About me
 description: Introduction about myself author of this humble blog.
+cover: '/assets/img/yetislab.png'
 ---
 
 # About me

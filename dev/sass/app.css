@@ -20,7 +20,7 @@ time, mark, audio, video, iframe, main, header, footer {
 }
 
 body {
-  font-family: "LXGW WenKai Screen", -apple-system, Verdana, "PingFang SC", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-family: "Nunito", "Montserrat", "Open Sans", Roboto, sans-serif;
   color: #656565;
   -webkit-font-smoothing: antialiased;
   background-color: #F7F8FA;
@@ -446,7 +446,7 @@ a.extlinks::after {
 .article-list .article-item .post-preview .post-excerpt {
   margin-top: 8px;
   font-size: 16px;
-  font-family: "Merriweather", "LXGW WenKai Screen", -apple-system, Verdana, "PingFang SC", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-family: "Nunito", "Montserrat", "Open Sans", Roboto,sans-serif;
   line-height: 26px;
   word-break: break-all;
   color: #585858;

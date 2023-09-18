@@ -1,6 +1,6 @@
 ---
 layout: default
-home-title: H2O Theme For Jekyll
+home-title: 
 description:
 ---
 
@@ -11,7 +11,7 @@ description:
     data-theme="{{ site.theme-color }}"
     style="{% if page.cover %}background: url({{ page.cover | relative_url }}) no-repeat center center; background-size: cover;{% endif %}"
 >
-    <h2>{{ page.home-title }}</h2>
+    <h2 data-heading="{{ page.home-title }}">{{ page.home-title }}</h2>
     <h3>{{ page.description }}</h3>
     {% if page.cover_author %}
         <p class="meta-item">

@@ -1,9 +1,9 @@
 var gulp = require('gulp'),
-    concat = require('gulp-concat'), //合并css文件
-    uglify = require('gulp-uglify'), // 压缩js文件
-    sass = require('gulp-sass')(require('sass')), // 编译sass
-    cleanCSS = require('gulp-clean-css'), // 压缩css文件
-    rename = require('gulp-rename'); // 文件重命名
+    concat = require('gulp-concat'), //css
+    uglify = require('gulp-uglify'), // js
+    sass = require('gulp-sass')(require('sass')), // sass
+    cleanCSS = require('gulp-clean-css'), // css
+    rename = require('gulp-rename');
 
 gulp.task('scripts', (cb) => {
     gulp.src('dev/js/index.js')

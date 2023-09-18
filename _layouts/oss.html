@@ -3,18 +3,58 @@ layout: page
 home-title: Open source contributions
 description: OSS projects I maintain or contribute actively
 permalink: /oss/index.html
-cover: https://images.unsplash.com/photo-1465189684280-6a8fa9b19a7a?w=1600&q=900
+cover: '/assets/img/articles/no-cover.png'
 ---
-<p>{{ site.oss_projects | size }} OSS Projects</p>
-<ul>
+<p>{{ site.oss_projects | size }} Projects</p>
+<!--<ul>-->
+<!--{% for project in site.oss_projects %}-->
+<!--    <li>-->
+<!--        <p class="archives-title">-->
+<!--        <span class="archives-date">-->
+<!--             <img src="/{{ project.image }}" alt="Logo of {{ project.title }}"/>-->
+<!--        </span>-->
+<!--            <a href="{{ project.url | prepend: site.baseurl }}"> {{ project.title }} </a>-->
+<!--        </p>-->
+<!--    </li>-->
+<!--{% endfor %}-->
+<!--</ul>-->
+
+
+
+<!-- Wide card with share menu button -->
+<!--<style>-->
+<!--    .demo-card-wide.mdl-card {-->
+<!--        width: 512px;-->
+<!--    }-->
+<!--    .demo-card-wide > .mdl-card__title {-->
+<!--        color: #fff;-->
+<!--        height: 176px;-->
+<!--        background: url('/{{ project.image }}') center / cover;-->
+<!--    }-->
+<!--    .demo-card-wide > .mdl-card__menu {-->
+<!--        color: #fff;-->
+<!--    }-->
+<!--</style>-->
 {% for project in site.oss_projects %}
-    <li>
-        <p class="archives-title">
-        <span class="archives-date">
-             <img src="/{{ project.image }}" alt="Logo of {{ project.title }}"/>
-        </span>
-            <a href="{{ project.url | prepend: site.baseurl }}"> {{ project.title }} </a>
-        </p>
-    </li>
+<div class="mdl-card mdl-shadow--2dp" style="width: auto;">
+    <div class="mdl-card__title">
+        <img src="/{{ project.image }}" alt="Logo of {{ project.title }}" height="128" />
+    </div>
+    <div class="mdl-card__supporting-text" style="width: 100%; text-align:center;">
+        {{ project.title }}
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{ project.url | prepend: site.baseurl }}">
+            MORE <i class="material-icons">arrow_forward_ios</i>
+        </a>
+    </div>
+    <div class="mdl-card__menu">
+        <a class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" href="{{ project.repository }}">
+            <i class="material-icons">code</i>
+        </a>
+    </div>
+</div>
+<br/>
 {% endfor %}
-</ul>
+
+

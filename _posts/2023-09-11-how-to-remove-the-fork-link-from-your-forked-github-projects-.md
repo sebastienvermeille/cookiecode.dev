@@ -4,7 +4,7 @@ title:  "[How to] Remove the fork link from a forked GitHub repository"
 author: sbeex
 categories: [ tools ]
 tags: [ git, github ]
-cover: assets/img/articles/no-cover.png
+cover: assets/img/articles/github-remove-fork-link.png
 subtheme: sub-theme-git
 published: true
 ---
