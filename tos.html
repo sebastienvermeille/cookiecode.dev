@@ -37,6 +37,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.css" />
     <link rel="stylesheet" href="/assets/css/app.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+
+
+    <!--    todo: use self hosted variant-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 
 
@@ -81,8 +87,8 @@
             
                 
                 <li>
-                    <a href="/oss/index.html" aria-label="open source">
-                        open source
+                    <a href="/oss/index.html" aria-label="projects">
+                        projects
                     </a>
                 </li>
                 
@@ -113,7 +119,7 @@
     data-theme="default"
     style=""
 >
-    <h2>Welcome to cookiecode.dev, svermeilles's blog!</h2>
+    <h2 data-heading="Welcome to cookiecode.dev, svermeilles's blog!">Welcome to cookiecode.dev, svermeilles's blog!</h2>
     <h3>Learning, Writing ...</h3>
     
 </div>
@@ -183,6 +189,17 @@ Please note that if you continue to use this site after updating the content of 
     </div>
 
     <aside class="g-sidebar-wrapper">
+
+    
+    <div class="search-card">
+        <input id="search_input" type="text" placeholder="Search..." autocomplete="off">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-search"></use>
+        </svg>
+        <div class="search_result"></div>
+    </div>
+    
+
     <div class="g-sidebar">
         <section class="author-card">
             <div class="avatar">
@@ -246,7 +263,12 @@ Please note that if you continue to use this site after updating the content of 
                     
                         
                         
-                        <a href="/tags.html#linux" class="tag">linux<sup>4</sup></a>
+<!--                        <a href="/tags.html#linux" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="4">linux</a>-->
+<!--                        <a href="/tags.html#linux" class="tag">linux<sup>4</sup></a>-->
+                        <a href="/tags.html#linux" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">4</span>
+                            <span class="mdl-chip__text">linux</span>
+                        </a>
                     
                 
                     
@@ -332,13 +354,23 @@ Please note that if you continue to use this site after updating the content of 
                     
                         
                         
-                        <a href="/tags.html#git" class="tag">git<sup>2</sup></a>
+<!--                        <a href="/tags.html#git" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="2">git</a>-->
+<!--                        <a href="/tags.html#git" class="tag">git<sup>2</sup></a>-->
+                        <a href="/tags.html#git" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">2</span>
+                            <span class="mdl-chip__text">git</span>
+                        </a>
                     
                 
                     
                         
                         
-                        <a href="/tags.html#i3wm" class="tag">i3wm<sup>2</sup></a>
+<!--                        <a href="/tags.html#i3wm" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="2">i3wm</a>-->
+<!--                        <a href="/tags.html#i3wm" class="tag">i3wm<sup>2</sup></a>-->
+                        <a href="/tags.html#i3wm" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">2</span>
+                            <span class="mdl-chip__text">i3wm</span>
+                        </a>
                     
                 
                     
@@ -346,7 +378,12 @@ Please note that if you continue to use this site after updating the content of 
                     
                         
                         
-                        <a href="/tags.html#windows" class="tag">windows<sup>2</sup></a>
+<!--                        <a href="/tags.html#windows" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="2">windows</a>-->
+<!--                        <a href="/tags.html#windows" class="tag">windows<sup>2</sup></a>-->
+                        <a href="/tags.html#windows" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">2</span>
+                            <span class="mdl-chip__text">windows</span>
+                        </a>
                     
                 
                     
@@ -383,13 +420,23 @@ Please note that if you continue to use this site after updating the content of 
                     
                         
                         
-                        <a href="/tags.html#spring" class="tag">spring<sup>1</sup></a>
+<!--                        <a href="/tags.html#spring" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="1">spring</a>-->
+<!--                        <a href="/tags.html#spring" class="tag">spring<sup>1</sup></a>-->
+                        <a href="/tags.html#spring" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">1</span>
+                            <span class="mdl-chip__text">spring</span>
+                        </a>
                     
                 
                     
                         
                         
-                        <a href="/tags.html#reactive" class="tag">reactive<sup>1</sup></a>
+<!--                        <a href="/tags.html#reactive" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="1">reactive</a>-->
+<!--                        <a href="/tags.html#reactive" class="tag">reactive<sup>1</sup></a>-->
+                        <a href="/tags.html#reactive" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">1</span>
+                            <span class="mdl-chip__text">reactive</span>
+                        </a>
                     
                 
                     
@@ -403,37 +450,67 @@ Please note that if you continue to use this site after updating the content of 
                     
                         
                         
-                        <a href="/tags.html#mac" class="tag">mac<sup>1</sup></a>
+<!--                        <a href="/tags.html#mac" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="1">mac</a>-->
+<!--                        <a href="/tags.html#mac" class="tag">mac<sup>1</sup></a>-->
+                        <a href="/tags.html#mac" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">1</span>
+                            <span class="mdl-chip__text">mac</span>
+                        </a>
                     
                 
                     
                         
                         
-                        <a href="/tags.html#screenshot" class="tag">screenshot<sup>1</sup></a>
+<!--                        <a href="/tags.html#screenshot" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="1">screenshot</a>-->
+<!--                        <a href="/tags.html#screenshot" class="tag">screenshot<sup>1</sup></a>-->
+                        <a href="/tags.html#screenshot" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">1</span>
+                            <span class="mdl-chip__text">screenshot</span>
+                        </a>
                     
                 
                     
                         
                         
-                        <a href="/tags.html#docker" class="tag">docker<sup>1</sup></a>
+<!--                        <a href="/tags.html#docker" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="1">docker</a>-->
+<!--                        <a href="/tags.html#docker" class="tag">docker<sup>1</sup></a>-->
+                        <a href="/tags.html#docker" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">1</span>
+                            <span class="mdl-chip__text">docker</span>
+                        </a>
                     
                 
                     
                         
                         
-                        <a href="/tags.html#tts" class="tag">tts<sup>1</sup></a>
+<!--                        <a href="/tags.html#tts" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="1">tts</a>-->
+<!--                        <a href="/tags.html#tts" class="tag">tts<sup>1</sup></a>-->
+                        <a href="/tags.html#tts" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">1</span>
+                            <span class="mdl-chip__text">tts</span>
+                        </a>
                     
                 
                     
                         
                         
-                        <a href="/tags.html#nodered" class="tag">nodered<sup>1</sup></a>
+<!--                        <a href="/tags.html#nodered" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="1">nodered</a>-->
+<!--                        <a href="/tags.html#nodered" class="tag">nodered<sup>1</sup></a>-->
+                        <a href="/tags.html#nodered" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">1</span>
+                            <span class="mdl-chip__text">nodered</span>
+                        </a>
                     
                 
                     
                         
                         
-                        <a href="/tags.html#sonos" class="tag">sonos<sup>1</sup></a>
+<!--                        <a href="/tags.html#sonos" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="1">sonos</a>-->
+<!--                        <a href="/tags.html#sonos" class="tag">sonos<sup>1</sup></a>-->
+                        <a href="/tags.html#sonos" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">1</span>
+                            <span class="mdl-chip__text">sonos</span>
+                        </a>
                     
                 
                     
@@ -491,17 +568,10 @@ Please note that if you continue to use this site after updating the content of 
 
     </div>
 
-    
-    <div class="search-card">
-        <input id="search_input" type="text" placeholder="Search..." autocomplete="off">
-        <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-search"></use>
-        </svg>
-        <div class="search_result"></div>
-    </div>
-    
+
 
 </aside>
+
 
 </main>
 
@@ -533,8 +603,8 @@ Please note that if you continue to use this site after updating the content of 
   
 </footer>
 <div class="cookie-tip">
-  In order to improve the experience and guarantee necessary functions of our website, we will use the local Cookie. More details in <a href="/tos.html">ToS</a> page.
-  <button id="accept-tos">(Accept）</button>
+  In order to improve the experience and guarantee necessary functions of the website, it will use the local Cookie. More details in <a href="/tos.html">ToS</a> page.
+  <button id="accept-tos">Accept</button>
 </div>
 <button id="list" aria-label="Scroll back to top" class="mobile-list" type="button">
   <svg class="icon list day" aria-hidden="true">
@@ -558,6 +628,7 @@ Please note that if you continue to use this site after updating the content of 
     <use xlink:href="#icon-up-night"></use>
   </svg>
 </button>
+
 
 
       </div>
