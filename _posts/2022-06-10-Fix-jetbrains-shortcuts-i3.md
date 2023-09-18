@@ -4,7 +4,7 @@ title:  "[WIP][How to] Fix Jetbrains shortcuts on i3wm"
 author: sbeex
 categories: [ tools ]
 tags: [ linux, i3wm]
-cover: assets/img/articles/i3wm.png
+cover: assets/img/articles/i3-jetbrains.png
 subtheme: sub-theme-git
 ---
 ## Introduction

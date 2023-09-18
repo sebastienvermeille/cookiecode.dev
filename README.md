@@ -20,7 +20,13 @@
 
 ### Develop
 * `yay -S ruby`
+* add ruby to path (.zsh)
+  > export PATH=~/.local/share/gem/ruby/3.0.0/bin:$PATH
+
 * `gem install jekyll bundler`
+* `sudo bundle install`
 
 * This command `bundle exec jekyll serve` will locally run a livereload webserver
   to locally perform changes in the source code and view them.
+
+Visit http://127.0.0.1:4000

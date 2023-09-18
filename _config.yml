@@ -29,7 +29,7 @@ language: en-US
 # Navigation links
 nav:
   home: '/blog/index.html'
-  open source: '/oss/index.html'
+  projects: '/oss/index.html'
 #  home: '/'
 #  blog: '/blog/index.html'
 #  archives: '/archives.html'

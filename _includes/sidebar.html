@@ -1,4 +1,15 @@
 <aside class="g-sidebar-wrapper">
+
+    {% if site.search %}
+    <div class="search-card">
+        <input id="search_input" type="text" placeholder="Search..." autocomplete="off">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-search"></use>
+        </svg>
+        <div class="search_result"></div>
+    </div>
+    {% endif %}
+
     <div class="g-sidebar">
         <section class="author-card">
             <div class="avatar">
@@ -60,7 +71,12 @@
                         {% if pnum > site.recommend-condition-size %}
                             {% break %}
                         {% endif %}
-                        <a href="{{ "tags.html#" | append: tag[0] | relative_url }}" class="tag">{{ tag[0] }}<sup>{{ i }}</sup></a>
+<!--                        <a href="{{ "tags.html#" | append: tag[0] | relative_url }}" class="material-icons mdl-badge mdl-badge&#45;&#45;overlap tag" data-badge="{{ i }}">{{ tag[0] }}</a>-->
+<!--                        <a href="{{ "tags.html#" | append: tag[0] | relative_url }}" class="tag">{{ tag[0] }}<sup>{{ i }}</sup></a>-->
+                        <a href="{{ "tags.html#" | append: tag[0] | relative_url }}" class="mdl-chip mdl-chip--contact">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">{{ i }}</span>
+                            <span class="mdl-chip__text">{{ tag[0] }}</span>
+                        </a>
                     {% endif %}
                 {% endfor %}
                 {% if pnum > site.recommend-condition-size %}
@@ -104,14 +120,6 @@
 
     </div>
 
-    {% if site.search %}
-    <div class="search-card">
-        <input id="search_input" type="text" placeholder="Search..." autocomplete="off">
-        <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-search"></use>
-        </svg>
-        <div class="search_result"></div>
-    </div>
-    {% endif %}
+
 
 </aside>
