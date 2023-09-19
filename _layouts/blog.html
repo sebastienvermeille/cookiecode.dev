@@ -10,7 +10,7 @@ description: In this blog I share with you some answers to problems I faced duri
     class="g-banner home-banner {{ site.theme-color | prepend: 'banner-theme-' }}"
     data-theme="{{ site.theme-color }}"
     style="background: url('/assets/img/mountain-header-bg.png') no-repeat center center; background-size: cover;"
-    style="{% if page.header-img %}background: url({{ page.header-img | relative_url }}) no-repeat center center; background-size: cover;{% endif %}"
+    style="{% if page.header-img %}background: url({{ page.header-img | relative_url }}) no-repeat center center; background-size: contain;{% endif %}"
 >
     <h2 data-heading="{{ page.home-title }}">{{ page.home-title }}</h2>
     <h3>{{ page.description }}</h3>
