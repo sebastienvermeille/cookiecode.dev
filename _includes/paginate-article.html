@@ -37,7 +37,7 @@
             {% when 1 %}
                 {{ post.date | date_to_string }}
             {% else %}
-                {{ post.date | date: "%Y年%-m月%-d日"  }}
+                {{ post.date | date: "%d/%m/%Y"  }}
             {% endcase %}
         </time>
     </footer>
